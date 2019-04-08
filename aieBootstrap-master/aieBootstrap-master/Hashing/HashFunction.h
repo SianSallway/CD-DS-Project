@@ -1,22 +1,14 @@
 #pragma once
 #include <functional>
+#include <string>
 #include "Application.h"
 #include "Renderer2D.h"
 
 
-namespace HashFun {
+namespace HashFuntions {
 
-	typedef std::function< unsigned int(const char*, unsigned int)> HashFunc;
+	//unsigned Hash(string data);
 
-	// implementation of a basic addition hash
-	//unsigned int badHash(const char* data, unsigned int length);
-
-	// ADD YOUR FUNCTIONS HERE
-	unsigned Hash(const char* name, unsigned int length);
-
-
-	// a helper to access a default hash function
-	static HashFunc default = Hash;
 }
 
 class HashFunction
