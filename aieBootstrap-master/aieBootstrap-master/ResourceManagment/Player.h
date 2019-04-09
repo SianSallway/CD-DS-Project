@@ -13,7 +13,7 @@ class Player
 public:
 
 	Player(TexturePtr texture) : m_ship(texture) {};
-	~Player();
+	~Player() {};
 
 private:
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include<vector>
+#include <vector>
 #include "Resource.h"
 
 using namespace std;
@@ -16,8 +16,8 @@ class ResourceManager
 
 public:
 
-	ResourceManager();
-	~ResourceManager();
+	ResourceManager() {};
+	~ResourceManager() {};
 
 	shared_ptr<Resource<T>> get(const string filename) 
 	{

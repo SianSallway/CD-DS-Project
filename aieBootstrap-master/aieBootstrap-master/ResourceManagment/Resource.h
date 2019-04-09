@@ -14,6 +14,8 @@ public:
 
 	~Resource() {};
 
+	std::string getFilename() { return m_filename; }
+
 	T* getData() const
 	{
 		return m_data.get();
@@ -22,7 +24,7 @@ public:
 private: 
 
 	unique_ptr<T> m_data;
-	string m_filname;
+	string m_filename;
 
 };
 
