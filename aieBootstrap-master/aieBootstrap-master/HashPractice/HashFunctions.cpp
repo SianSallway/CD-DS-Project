@@ -1,10 +1,11 @@
-#include "HashFunction.h"
+#include "pch.h"
+#include "HashFunctions.h"
 #include <string>
 #include <iostream>
 
 using namespace std;
 
-namespace HashFunctions {
+namespace HashFunction {
 
 	unsigned Hash(string data)
 	{
@@ -17,20 +18,18 @@ namespace HashFunctions {
 
 		return hash;
 
-		cout << hash << endl;
+
 
 	}
 }
 
-HashFunction::HashFunction()
+HashFunctions::HashFunctions()
 {
-	HashFunctions::Hash("Hiya!!!");
+	HashFunction::Hash("Hiya!!!");
 
 }
 
 
-HashFunction::~HashFunction()
+HashFunctions::~HashFunctions()
 {
 }
-
-

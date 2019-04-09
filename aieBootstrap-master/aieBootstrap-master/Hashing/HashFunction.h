@@ -4,10 +4,11 @@
 #include "Application.h"
 #include "Renderer2D.h"
 
+using namespace std;
 
 namespace HashFuntions {
 
-	//unsigned Hash(string data);
+	unsigned Hash(string data);
 
 }
 
