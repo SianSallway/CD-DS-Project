@@ -1,14 +1,15 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "Resource.h"
+
 
 using namespace std;
 
 template<class T>
 class ResourceManager
 {
-	vector<shared_ptr<Resource<T>> > m_resources;
+	//vector<shared_ptr<Resource<T>> > m_resources;
+	map<string, shared_ptr<T>> m_map;
 
 	ResourceManager(const ResourceManager&) {};
 
@@ -21,34 +22,29 @@ public:
 
 	shared_ptr<Resource<T>> get(const string filename) 
 	{
-		vector< shared_ptr<Resource<T>> >::iterator it; 
-
-		for (it = m_resources.begin(); it != m_resources.end(); it++)
+		map<string, shared_ptr<T>>::iterator it = m_map.find(filename);
+		
+		if (it == m_map.end())
 		{
-			if (filename.compare((*it)->getFilename()) == 0)
-			{
-				return (*it);
-			}
+			shared_ptr<T> resource(new T(filename.c_str()));
+			it = m_map.insert(it, pair< string, shared_ptr<T> >(filename, resource))
 		}
-
-		shared_ptr<Resource<T>> resource(new Resource<T>(filename));
-		m_resources.push_back(resource);
-
-			return resource;
+	
+			return (*it).second;
 	}
 
 	int getCount()
 	{
-		return m_resources.size();
+		return m_map.size();
 	}
 
 	void collectGarbage()
 	{
-		for (vector< shared_ptr<Resource<T>> >::iterator it = m_resources.begin(); it != m_resources.end();)
+		for (map< string, shared_ptr<T>>::iterator it = m_map.begin(); it != m_map.end();)
 		{
-			if ((*it).use_count() == 1)
+			if (it->.use_count() == 1)
 			{
-				it = m_resources.erase(it);
+				m_map.erase(it++);
 			}
 			else
 			{

@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#include "Resource.h"
+
 #include "Application.h"
 #include "Renderer2D.h"
 
