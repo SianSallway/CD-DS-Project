@@ -1,7 +1,11 @@
 #include "pch.h"
 #include <iostream>
+#include <string>
+#include <fstream>
 
 using namespace std;
+
+//updated
 
 namespace HashFunction {
 
@@ -12,7 +16,7 @@ namespace HashFunction {
 		for (unsigned int i = 0; i < data.size(); ++i)
 		{
 			hash += data[i];
-			cout << "hash value is " <<  hash << endl;
+			cout << data << "'s hash value is " << hash << endl;
 		}
 
 		return hash;
@@ -21,6 +25,23 @@ namespace HashFunction {
 
 int main()
 {
-	HashFunction::Hash("Hiya!!!");
+	string userInput;
+
+	cout << "Welcome User!!! \n";
+
+	while (true)
+	{
+		cout << "\n";
+
+		cout << "Please enter a sentence to evaluate \n";
+
+		getline(cin, userInput);
+
+		cout << "\n";
+
+		HashFunction::Hash(userInput);
+
+	}
+
 }
 

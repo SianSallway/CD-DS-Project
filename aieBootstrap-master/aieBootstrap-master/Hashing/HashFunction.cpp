@@ -24,7 +24,7 @@ namespace HashFunctions {
 
 HashFunction::HashFunction()
 {
-	HashFunctions::Hash("Hiya!!!");
+	//HashFunctions::Hash("Hiya!!!");
 
 }
 

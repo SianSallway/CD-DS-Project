@@ -1,11 +1,12 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <memory>
 
-
+//to be updated
 using namespace std;
 
-template<class T>
+template<class T, class...Targs>
 class ResourceManager
 {
 	//vector<shared_ptr<Resource<T>> > m_resources;
@@ -20,7 +21,7 @@ public:
 	ResourceManager() {};
 	~ResourceManager() {};
 
-	shared_ptr<Resource<T>> get(const string filename) 
+	shared_ptr<Resource<T>> get(const string filename, Targs...args)//edited
 	{
 		map<string, shared_ptr<T>>::iterator it = m_map.find(filename);
 		
