@@ -4,28 +4,24 @@
 
 using namespace std;
 
-namespace HashFunctions {
+unsigned Hash(string data)
+{
+	unsigned int hash = 0;
 
-	unsigned Hash(string data)
+	for (unsigned int i = 0; i < data.size(); ++i)
 	{
-		unsigned int hash = 0;
-
-		for (unsigned int i = 0; i < data.size(); ++i)
-		{
-			hash += data[i];
-		}
-
-		return hash;
-
-		cout << hash << endl;
-
+		hash += data[i];
 	}
+
+	return hash;
+
+	cout << hash << endl;
+
 }
 
 HashFunction::HashFunction()
 {
-	//HashFunctions::Hash("Hiya!!!");
-
+	
 }
 
 

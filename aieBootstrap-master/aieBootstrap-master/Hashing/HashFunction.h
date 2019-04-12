@@ -6,17 +6,13 @@
 
 using namespace std;
 
-namespace HashFuntions {
-
-	unsigned Hash(string data);
-
-}
-
 class HashFunction
 {
 public:
 	HashFunction();
 	~HashFunction();
+
+	unsigned Hash(string data);
 
 private:
 

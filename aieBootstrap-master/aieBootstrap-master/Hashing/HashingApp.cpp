@@ -4,8 +4,6 @@
 #include "Input.h"
 #include "imgui.h"
 
-//updated
-
 HashingApp::HashingApp() {
 
 }
@@ -36,22 +34,16 @@ void HashingApp::update(float deltaTime) {
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 
+	string userInput;
 	static int value = 0;
 	ImGui::InputInt("Value", &value);
 
-	if (ImGui::Button("Insert", ImVec2(50, 0)))
+	if (ImGui::Button("Calculate Hash", ImVec2(100, 0)))
 	{
-		//m_binaryTree.insert(value);
-		//m_selectedNode = m_binaryTree.find(value);
+		//hashing.Hash(userInput);
+	
 	}
-	if (ImGui::Button("Remove", ImVec2(50, 0)))
-	{
-		//m_binaryTree.remove(value);
-	}
-	if (ImGui::Button("Find", ImVec2(50, 0)))
-	{
-		//m_selectedNode = m_binaryTree.find(value);
-	}
+
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))

@@ -5,8 +5,6 @@
 
 using namespace std;
 
-//updated
-
 namespace HashFunction {
 
 	unsigned Hash(string data)
