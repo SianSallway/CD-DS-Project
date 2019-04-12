@@ -20,6 +20,8 @@ bool HashingApp::startup() {
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 
+	hashImage = new aie::Texture("..\bin\textures\ship.png");
+
 	return true;
 }
 
@@ -59,7 +61,8 @@ void HashingApp::draw() {
 	m_2dRenderer->begin();
 
 	// draw your stuff here!
-	
+	m_2dRenderer->drawSprite(hashImage, 0, 0, 50, 50, 0, 0, 0, 0);
+
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
 

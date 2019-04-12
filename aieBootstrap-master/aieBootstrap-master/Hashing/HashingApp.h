@@ -22,4 +22,6 @@ protected:
 
 	HashFunction hashing;
 
+	aie::Texture* hashImage;
+
 };

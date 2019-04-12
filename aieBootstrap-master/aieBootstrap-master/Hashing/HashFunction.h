@@ -5,6 +5,8 @@
 #include "Renderer2D.h"
 
 using namespace std;
+class aie::Texture;
+
 
 class HashFunction
 {
