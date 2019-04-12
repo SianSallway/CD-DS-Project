@@ -2,11 +2,13 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <map>
+#include <utility>
 
 //to be updated
 using namespace std;
 
-template<class T, class...Targs>
+template<class T, class... Targs>
 class ResourceManager
 {
 	//vector<shared_ptr<Resource<T>> > m_resources;
@@ -21,17 +23,17 @@ public:
 	ResourceManager() {};
 	~ResourceManager() {};
 
-	shared_ptr<Resource<T>> get(const string filename, Targs...args)//edited
+	shared_ptr<T> get(const string filename, Targs... args)
 	{
 		map<string, shared_ptr<T>>::iterator it = m_map.find(filename);
 		
 		if (it == m_map.end())
 		{
-			shared_ptr<T> resource(new T(filename.c_str()));
-			it = m_map.insert(it, pair< string, shared_ptr<T> >(filename, resource))
+			shared_ptr<T> resource(new T(filename.c_str(), args...));
+			it = m_map.insert(it, pair< string, shared_ptr<T> >(filename, resource));
 		}
 	
-			return (*it).second;
+		return (*it).second;
 	}
 
 	int getCount()
@@ -41,9 +43,9 @@ public:
 
 	void collectGarbage()
 	{
-		for (map< string, shared_ptr<T>>::iterator it = m_map.begin(); it != m_map.end();)
+		for (map<string, shared_ptr<T>>::iterator it = m_map.begin(); it != m_map.end(); )
 		{
-			if (it->.use_count() == 1)
+			if ((*it).second.use_count() == 1)
 			{
 				m_map.erase(it++);
 			}
@@ -53,6 +55,5 @@ public:
 			}
 		}
 	}
-
 };
 

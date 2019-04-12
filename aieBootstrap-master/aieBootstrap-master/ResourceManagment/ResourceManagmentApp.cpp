@@ -23,7 +23,7 @@ bool ResourceManagmentApp::startup() {
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	TexturePtr pShip = m_images.get("./textures/ship.png");
-	m_player = new Player(pShip);
+	//m_player = new Player(pShip);
 
 	cout << "images loaded: " << m_images.getCount() << endl;
 	return true;
@@ -33,7 +33,7 @@ void ResourceManagmentApp::shutdown() {
 
 	cout << "images loaded: " << m_images.getCount() << endl;
 
-	delete m_player;
+	//delete m_player;
 
 	m_images.collectGarbage();
 

@@ -5,8 +5,6 @@
 
 using namespace std;
 
-//updated
-
 template<class T>
 class Resource
 {

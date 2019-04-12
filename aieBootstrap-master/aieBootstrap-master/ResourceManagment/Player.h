@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
-
+#include "Resource.h"
 #include "Application.h"
 #include "Renderer2D.h"
 
 using namespace std;
 
-typedef shared_ptr<Resource<aie::Texture>> TexturePtr;
+typedef shared_ptr<aie::Texture> TexturePtr;
 
 class Player
 {

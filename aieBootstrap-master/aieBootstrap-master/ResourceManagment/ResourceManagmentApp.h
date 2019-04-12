@@ -1,12 +1,11 @@
 #pragma once
 #include "Application.h"
 #include "Renderer2D.h"
-#include"Player.h"
+#include "Player.h"
 #include "ResourceManager.h"
 #include <memory>
 
 using namespace std;
-//updated
 
 class ResourceManagmentApp : public aie::Application {
 public:
@@ -29,7 +28,8 @@ protected:
 	ResourceManager<aie::Texture> m_images;
 	ResourceManager<aie::Font, int> m_fonts;
 
-	shared_ptr<aie::Font> font = m_fonts.get("./font/consolas.ttf", 32);
-	shared_ptr<aie::Texture> grass = m_images.get(".texture/grass.png");
+	std::shared_ptr<aie::Font> font = m_fonts.get("./font/consolas.ttf", 32);
+	std::shared_ptr<aie::Texture> grass = m_images.get(".texture/grass.png");
+	
 	//Player* m_player;
 };
