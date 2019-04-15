@@ -121,8 +121,6 @@ void Merge(int array[], int startIndex, int midIndex, int endIndex)
 	for (int i = 0; i < leftEnd; i++)
 	{
 		leftArray[i] = array[startIndex + i];
-
-
 	}
 
 	for (int j = 0; j < rightEnd; j++)
