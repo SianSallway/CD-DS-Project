@@ -3,8 +3,6 @@
 
 using namespace std;
 
-//iterates through each element from index 0 to n, and outputs it to std::cout
-//don't forget to #include <iostream>
 void print_array(int array[], int n)
 {
 	for (int i = 0; i != n; ++i)
@@ -64,7 +62,6 @@ void BubbleSort(int array[], int length)
 
 void InsertionSort(int array[], int length)
 {
-
 	for (int i = 0; i < length; i++)
 	{
 		int key = array[i];
@@ -73,13 +70,44 @@ void InsertionSort(int array[], int length)
 		while (j >= 0 && array[j] > key)
 		{
 			array[j + 1] = array[j];
+			
 			j = j - 1;
 
 			array[j + 1] = key;
 		}
 	}
+}\
+
+int Partition(int array[], int p, int r)
+{
+	int x = array[r];
+	int i = p - 1;
+
+	for (int j = p; j < r - 1; j++)
+	{
+		if (array[j] < x)
+		{
+			i = i + 1;
+			swap(array[i], array[j]);
+			swap(array[i + 1], array[r]);
+
+
+			return i + 1;
+		}
+	}
+
 }
 
+void QuickSort(int array[], int p, int r)
+{
+	if (p < r)
+	{
+		int q = Partition(array, p, r);
+
+		QuickSort(array, p, q - 1);
+		QuickSort(array, q + 1, r);
+	}
+}
 
 int main()
 {
@@ -97,30 +125,35 @@ int main()
 										39,15,17,97,52 };
 
 
-	//int* valuesToSort = new int[size];
-
-	//Profile bubble sort 
-	//memcpy(valuesToSort, value, sizeof(int)*size);
-
 	//Print the unsorted array
 	cout << "Unsorted\n" << endl;
 	print_array(array_to_be_sorted, array_size);
 
 	cout << "\n";
 
-	BubbleSort(array_to_be_sorted, array_size);
+	/*BubbleSort(array_to_be_sorted, array_size);
 	cout << "Bubble Sort \n" << endl;
 	print_array(array_to_be_sorted, array_size);
 
 	cout << "\n";
-	cout << "Press any key to profile Insertion Sort\n";
+	cout << "Press any key to use Insertion Sort\n";
 	cin.get();
-	cout << endl;
+	cout << endl;*/
 
 	InsertionSort(array_to_be_sorted, array_size);
 	cout << "Insertion Sort\n" << endl;
 
 	print_array(array_to_be_sorted, array_size);
+
+	/*cout << "\n";
+	cout << "Press any key to use Quick Sort\n";
+	cin.get();
+	cout << endl;
+
+	QuickSort(array_to_be_sorted, 0, array_size - 1);
+	cout << "Quick Sort\n" << endl;
+
+	print_array(array_to_be_sorted, array_size);*/
 
 	system("pause");
 	return 0;
