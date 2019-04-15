@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void print_array(int array[], int n)
+void PrintArray(int array[], int n)
 {
 	for (int i = 0; i != n; ++i)
 	{
@@ -16,7 +16,7 @@ void print_array(int array[], int n)
 }
 
 //swaps the contents of a and b
-void swap(int& a, int& b)
+void Swap(int& a, int& b)
 {
 	int temp = a;
 	a = b;
@@ -53,7 +53,7 @@ void BubbleSort(int array[], int length)
 		{
 			if (Compare(array[i], array[i + 1]) == true)
 			{
-				swap(array[i], array[i + 1]);
+				Swap(array[i], array[i + 1]);
 				sorted = false;
 			}
 		}
@@ -83,19 +83,17 @@ int Partition(int array[], int p, int r)
 	int x = array[r];
 	int i = p - 1;
 
-	for (int j = p; j < r - 1; j++)
+	for (int j = p; j <= r - 1; j++)
 	{
-		if (array[j] < x)
+		if (array[j] <= x)
 		{
 			i = i + 1;
-			swap(array[i], array[j]);
-			swap(array[i + 1], array[r]);
-
-
-			return i + 1;
+			Swap(array[i], array[j]);
 		}
 	}
+	Swap(array[i + 1], array[r]);
 
+	return i + 1;
 }
 
 void QuickSort(int array[], int p, int r)
@@ -109,11 +107,66 @@ void QuickSort(int array[], int p, int r)
 	}
 }
 
+void Merge(int array[], int startIndex, int midIndex, int endIndex)
+{
+	//cout << "Merge: start " << startIndex << " mid: " << midIndex << " end: " << endIndex << endl;
+
+	int leftEnd = midIndex - startIndex + 1;	// last index in left array
+	int rightEnd = endIndex - midIndex;			// last index in right array
+	//cout << "leftEnd: " << leftEnd << "   rightEnd: " << rightEnd << endl;
+
+	int* leftArray = new int[leftEnd + 1];
+	int* rightArray = new int[rightEnd + 1];
+
+	for (int i = 0; i < leftEnd; i++)
+	{
+		leftArray[i] = array[startIndex + i];
+
+
+	}
+
+	for (int j = 0; j < rightEnd; j++)
+	{
+		rightArray[j] = array[midIndex + j + 1];
+	}
+
+	int i = 0;
+	int j = 0;
+
+	for (int k = startIndex; k < endIndex; k++)
+	{
+		if (j >= rightEnd || i < leftEnd && leftArray[i] <= rightArray[j])
+		{
+			array[k] = leftArray[i];
+			i = i + 1;
+		}
+		else 
+		{
+			array[k] = rightArray[j];
+			j = j + 1;
+		}
+	} 
+
+	delete[] leftArray;
+	delete[] rightArray;
+}
+
+void MergeSort(int array[], int startIndex, int endIndex)
+{
+	if (startIndex < endIndex)
+	{
+		int q = (startIndex + endIndex) / 2;
+		MergeSort(array, startIndex, q);
+		MergeSort(array, q + 1, endIndex);
+		Merge(array, startIndex, q, endIndex);
+	}
+}
+
 int main()
 {
 	//Define our data
-	const int array_size = 50;
-	int array_to_be_sorted[array_size] = { 14,65,63,1,54,
+	const int arraySize = 50;
+	int arrayToSort[arraySize] = { 14,65,63,1,54,
 										89,84,9,98,57,
 										71,18,21,84,69,
 										28,11,83,13,42,
@@ -127,33 +180,43 @@ int main()
 
 	//Print the unsorted array
 	cout << "Unsorted\n" << endl;
-	print_array(array_to_be_sorted, array_size);
+	PrintArray(arrayToSort, arraySize);
 
 	cout << "\n";
 
-	/*BubbleSort(array_to_be_sorted, array_size);
-	cout << "Bubble Sort \n" << endl;
-	print_array(array_to_be_sorted, array_size);
+	/*BubbleSort(arrayToSort, arraySize);
+	cout << "Bubble Sorted \n" << endl;
+	PrintArray(arrayToSort, arraySize);
 
 	cout << "\n";
 	cout << "Press any key to use Insertion Sort\n";
 	cin.get();
-	cout << endl;*/
+	cout << endl; */
 
-	InsertionSort(array_to_be_sorted, array_size);
-	cout << "Insertion Sort\n" << endl;
+	InsertionSort(arrayToSort, arraySize);
+	cout << "Insertion Sorted\n" << endl;
 
-	print_array(array_to_be_sorted, array_size);
+	PrintArray(arrayToSort, arraySize);
 
 	/*cout << "\n";
 	cout << "Press any key to use Quick Sort\n";
 	cin.get();
+	cout << endl;*/
+
+	/*QuickSort(arrayToSort, 0, arraySize - 1);
+	cout << "Quick Sorted\n" << endl;
+
+	PrintArray(arrayToSort, arraySize);*/
+
+	cout << "\n";
+	cout << "Press any key to use Merge Sort\n";
+	cin.get();
 	cout << endl;
 
-	QuickSort(array_to_be_sorted, 0, array_size - 1);
-	cout << "Quick Sort\n" << endl;
+	MergeSort(arrayToSort, 0, arraySize - 1);
+	cout << "Merge Sorted\n" << endl;
 
-	print_array(array_to_be_sorted, array_size);*/
+	PrintArray(arrayToSort, arraySize);
 
 	system("pause");
 	return 0;
