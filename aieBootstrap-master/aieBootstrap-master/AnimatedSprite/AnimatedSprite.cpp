@@ -1,6 +1,9 @@
 #include "AnimatedSprite.h"
 #include <Renderer2D.h>
+#include "assert.h"
+#include <iostream>
 
+using namespace std;
 
 AnimatedSprite::AnimatedSprite() : m_currentFrame(0), m_timer(0)
 {	
@@ -14,9 +17,21 @@ AnimatedSprite::~AnimatedSprite()
 	}
 }
 
-void AnimatedSprite::addFrame(aie::Texture* texture, float delay)
+int AnimatedSprite::addFrame(aie::Texture* texture, float delay)
 {
+	if (texture == nullptr)
+	{
+		return ERROR_NULL_TEXTURE;
+	}
+	
+	if (texture->getPixels() == nullptr)
+	{
+		return ERROR_NO_PIXEL_DATA;
+	}
+	
 	m_frames.push_back(Frame(texture, delay));
+
+	return NO_ERROR;
 }
 
 void AnimatedSprite::update(float deltaTime)
@@ -31,8 +46,47 @@ void AnimatedSprite::update(float deltaTime)
 	}
 }
 
-void AnimatedSprite::draw(aie::Renderer2D* renderer, int x, int y)
+void AnimatedSprite::draw(aie::Renderer2D* renderer, int x, int y, int flags = 0)
 {
 	Frame frame = m_frames.at(m_currentFrame);
-	renderer->drawSprite(frame.m_texture, x, y);
+
+	switch (flags)
+	{
+	case 0:
+		
+		renderer->drawSprite(frame.m_texture, x, y);
+		
+		break;
+
+	case DRAW_FLIP_X:
+
+		renderer->setUVRect(0.0f, 0.0f, -1.0f, 1.0f);
+		renderer->drawSprite(frame.m_texture, x, y);
+		renderer->setUVRect(0.0f, 0.0f, 1.0f, 1.0f);
+
+		break;
+
+	case DRAW_FLIP_Y:
+
+		renderer->setUVRect(0.0f, 0.0f, 1.0f, -1.0f);
+		renderer->drawSprite(frame.m_texture, x, y);
+		renderer->setUVRect(0.0f, 0.0f, 1.0f, 1.0f);
+
+		break;
+
+	case DRAW_FLIP_X | DRAW_FLIP_Y:
+
+		renderer->setUVRect(0.0f, 0.0f, -1.0f, -1.0f);
+		renderer->drawSprite(frame.m_texture, x, y);
+		renderer->setUVRect(0.0f, 0.0f, 1.0f, 1.0f);
+
+		break;
+
+	default:
+
+		throw exception((string("Invalid flag value: ") + to_string(flags)).c_str());
+
+		break;
+	}
+
 }

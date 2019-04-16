@@ -2,6 +2,12 @@
 #include <vector>
 #include <Texture.h>
 
+const int DRAW_FLIP_X = 0x01;
+const int DRAW_FLIP_Y = 0x04;
+const int NO_ERROR = 0;
+const int ERROR_NULL_TEXTURE = -1;
+const int ERROR_NO_PIXEL_DATA = -2;
+
 namespace aie {
 	class Renderer2D;
 };
@@ -19,10 +25,10 @@ public:
 	AnimatedSprite();
 	~AnimatedSprite();
 
-	void addFrame(aie::Texture* texture, float delay);
+	int addFrame(aie::Texture* texture, float delay);
 
 	void update(float deltaTime);
-	void draw(aie::Renderer2D* renderer, int x, int y);
+	void draw(aie::Renderer2D* renderer, int x, int y, int flags=0);
 
 private:
 	std::vector<Frame> m_frames;
