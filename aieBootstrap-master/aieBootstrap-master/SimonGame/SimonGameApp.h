@@ -4,6 +4,13 @@
 #include "Renderer2D.h"
 #include "Button.h"
 
+enum class GameState
+{
+	MenuState,
+	PlayState,
+	GameOverState
+};
+
 class SimonGameApp : public aie::Application {
 public:
 
@@ -18,8 +25,15 @@ public:
 
 protected:
 
+	bool isGameOver;
+
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
 	
 	Button* button;
+
+private:
+
+	GameState currentState;
+
 };

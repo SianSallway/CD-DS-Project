@@ -15,13 +15,15 @@ SimonGameApp::~SimonGameApp() {
 }
 
 bool SimonGameApp::startup() {
-	
+
 	m_2dRenderer = new aie::Renderer2D();
+	currentState = GameState::MenuState;
+	isGameOver = false;
 
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
-	button = new Button("Play", 200, 400, 120, 50);
+	button = new Button("Play", 850, 500, 120, 50);
 
 	return true;
 }
@@ -38,9 +40,38 @@ void SimonGameApp::update(float deltaTime) {
 	// input example
 	aie::Input* input = aie::Input::getInstance();
 
+	switch (currentState)
+	{
+	case GameState::MenuState:
+
+		if (button->Update())
+		{
+			cout << "Button has been clicked" << endl;
+			currentState = GameState::PlayState;
+		}
+
+		break;
+
+	case GameState::PlayState:
+
+		cout << "This is the playing state\n";
+
+
+
+		break;
+
+	case GameState::GameOverState:
+
+		break;
+
+	default:
+		break;
+	}
+
 	if (button->Update())
 	{
 		cout << "Button has been clicked" << endl;
+		GameState::PlayState;
 	}
 
 	// exit the application
@@ -60,7 +91,7 @@ void SimonGameApp::draw() {
 	button->Draw(m_2dRenderer);
 
 	// output some text, uses the last used colour
-	m_2dRenderer->drawText(m_font, "Welcome to Simon", 700, 650);
+	m_2dRenderer->drawText(m_font, "Welcome to Simon", 700, 900);
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
 
 	// done drawing sprites
