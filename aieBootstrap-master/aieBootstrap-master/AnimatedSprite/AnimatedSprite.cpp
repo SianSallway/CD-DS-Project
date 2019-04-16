@@ -46,7 +46,7 @@ void AnimatedSprite::update(float deltaTime)
 	}
 }
 
-void AnimatedSprite::draw(aie::Renderer2D* renderer, int x, int y, int flags = 0)
+void AnimatedSprite::draw(aie::Renderer2D* renderer, int x, int y, int flags)
 {
 	Frame frame = m_frames.at(m_currentFrame);
 

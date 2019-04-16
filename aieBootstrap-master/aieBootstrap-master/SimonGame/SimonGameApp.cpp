@@ -2,6 +2,9 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
+#include <iostream>
+
+using namespace std;
 
 SimonGameApp::SimonGameApp() {
 
@@ -18,6 +21,7 @@ bool SimonGameApp::startup() {
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
+	button = new Button("Play", 200, 400, 120, 50);
 
 	return true;
 }
@@ -26,12 +30,18 @@ void SimonGameApp::shutdown() {
 
 	delete m_font;
 	delete m_2dRenderer;
+	delete button;
 }
 
 void SimonGameApp::update(float deltaTime) {
 
 	// input example
 	aie::Input* input = aie::Input::getInstance();
+
+	if (button->Update())
+	{
+		cout << "Button has been clicked" << endl;
+	}
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -47,8 +57,10 @@ void SimonGameApp::draw() {
 	m_2dRenderer->begin();
 
 	// draw your stuff here!
-	
+	button->Draw(m_2dRenderer);
+
 	// output some text, uses the last used colour
+	m_2dRenderer->drawText(m_font, "Welcome to Simon", 700, 650);
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 0, 0);
 
 	// done drawing sprites
