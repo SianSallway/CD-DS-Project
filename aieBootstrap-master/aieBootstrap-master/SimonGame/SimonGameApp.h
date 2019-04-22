@@ -8,7 +8,8 @@ enum class GameState
 {
 	MenuState,
 	PlayState,
-	GameOverState
+	GameOverState,
+	GameWinState
 };
 
 class SimonGameApp : public aie::Application {
