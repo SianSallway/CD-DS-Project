@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "Renderer2D.h"
 #include "Button.h"
+#include "ProgressBar.h"
 
 enum class GameState
 {
@@ -27,11 +28,15 @@ public:
 protected:
 
 	bool isGameOver;
+	bool playerHasWon;
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
 	
-	Button* button;
+	Button* playButton;
+	Button* retryButton;
+
+	ProgressBar* progBar;
 
 private:
 
