@@ -6,9 +6,9 @@
 void Button::Draw(aie::Renderer2D* renderer)
 {
 	//drawing a box for the button background
-	renderer->setRenderColour(0.0f, 0.5f, 0.7f, 1.0f);
+	renderer->setRenderColour(0, 0.5f, 0.7f, 1);
 	renderer->drawBox(btnXPos, btnYPos, btnWidth, btnHeight);
-	renderer->setRenderColour(1.0f, 1.0f, 1.0f, 1.0f);
+	renderer->setRenderColour(1, 1, 1, 1);
 
 	//calculating the centred text position 
 	float textWidth = font->getStringWidth(buttonText);
@@ -18,6 +18,38 @@ void Button::Draw(aie::Renderer2D* renderer)
 
 	//drawing the text onto the button
 	renderer->drawText(font, buttonText, centredXPos, centredYPos);
+}
+
+void Button::DrawRedGameButton(aie::Renderer2D* renderer)
+{
+	renderer->setRenderColour(1, 0, 0, 1);
+	renderer->drawBox(btnXPos, btnYPos, btnWidth, btnHeight);
+	renderer->setRenderColour(1, 1, 1, 1);
+
+}
+
+void Button::DrawBlueGameButton(aie::Renderer2D* renderer)
+{
+	renderer->setRenderColour(0, 0, 225, 1);
+	renderer->drawBox(btnXPos, btnYPos, btnWidth, btnHeight);
+	renderer->setRenderColour(1, 1, 1, 1);
+
+}
+
+void Button::DrawYellowGameButton(aie::Renderer2D* renderer)
+{
+	renderer->setRenderColour(225, 255, 0, 1);
+	renderer->drawBox(btnXPos, btnYPos, btnWidth, btnHeight);
+	renderer->setRenderColour(1, 1, 1, 1);
+
+}
+
+void Button::DrawGreenGameButton(aie::Renderer2D* renderer)
+{
+	renderer->setRenderColour(0, 1, 0, 1);
+	renderer->drawBox(btnXPos, btnYPos, btnWidth, btnHeight);
+	renderer->setRenderColour(1, 1, 1, 1);
+
 }
 
 bool Button::Update()

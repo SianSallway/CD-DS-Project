@@ -35,6 +35,10 @@ protected:
 	
 	Button* playButton;
 	Button* retryButton;
+	Button* redGameButton;
+	Button* blueGameButton;
+	Button* yellowGameButton;
+	Button* greenGameButton;
 
 	ProgressBar* progBar;
 

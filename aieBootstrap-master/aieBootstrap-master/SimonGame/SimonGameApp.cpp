@@ -28,6 +28,10 @@ bool SimonGameApp::startup() {
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 	playButton = new Button("Play", 670, 350, 120, 50);
 	retryButton = new Button("Play again", 670, 350, 200, 50);
+	redGameButton = new Button(" ", 850, 350, 150, 150);
+	blueGameButton = new Button(" ", 1002, 350, 150, 150);
+	yellowGameButton = new Button(" ", 850, 198, 150, 150);
+	greenGameButton = new Button(" ", 1002, 198, 150, 150);
 	progBar = new ProgressBar(600, 500, 200, 20);
 
 	return true;
@@ -40,6 +44,10 @@ void SimonGameApp::shutdown() {
 	delete playButton;
 	delete retryButton;
 	delete progBar;
+	delete redGameButton;
+	delete blueGameButton;
+	delete yellowGameButton;
+	delete greenGameButton;
 }
 
 void SimonGameApp::update(float deltaTime) {
@@ -51,6 +59,7 @@ void SimonGameApp::update(float deltaTime) {
 	{
 	case GameState::MenuState:
 
+		//performs task based on player input, in this case if the play button has been clicked
 		if (playButton->Update())
 		{
 			cout << "Play Button has been clicked" << endl;
@@ -58,8 +67,29 @@ void SimonGameApp::update(float deltaTime) {
 		}
 
 		break;
-
+		
 	case GameState::PlayState:
+
+		//performs task based on player input, in this case if the red button has been clicked
+		if (redGameButton->Update())
+		{
+			cout << "Red Button has been clicked" << endl;
+		}
+		//performs task based on player input, in this case if the blue button has been clicked
+		if (blueGameButton->Update())
+		{
+			cout << "Blue Button has been clicked" << endl;
+		}
+		//performs task based on player input, in this case if the yellow button has been clicked
+		if (yellowGameButton->Update())
+		{
+			cout << "Yellow Button has been clicked" << endl;
+		}
+		//performs task based on player input, in this case if the green button has been clicked
+		if (greenGameButton->Update())
+		{
+			cout << "Green Button has been clicked" << endl;
+		}
 
 		if (isGameOver == true)
 		{
@@ -67,11 +97,11 @@ void SimonGameApp::update(float deltaTime) {
 			currentState = GameState::GameOverState;
 		}
 
-		if (progBar->GetValue == 100)
+		/*if (progBar->GetValue == 100)
 		{
 			playerHasWon = true;
 			currentState = GameState::GameWinState;
-		}
+		}*/
 
 		break;
 
@@ -126,6 +156,10 @@ void SimonGameApp::draw() {
 		m_2dRenderer->drawText(m_font, "Progress", 330, 490);
 		progBar->Draw(m_2dRenderer);
 		progBar->SetValue(0);
+		redGameButton->DrawRedGameButton(m_2dRenderer);
+		blueGameButton->DrawBlueGameButton(m_2dRenderer);
+		yellowGameButton->DrawYellowGameButton(m_2dRenderer);
+		greenGameButton->DrawGreenGameButton(m_2dRenderer);
 	}
 	else if (currentState == GameState::GameOverState)
 	{

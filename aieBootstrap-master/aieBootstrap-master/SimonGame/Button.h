@@ -10,6 +10,10 @@ public:
 	~Button();
 
 	void Draw(aie::Renderer2D* renderer);
+	void DrawRedGameButton(aie::Renderer2D* renderer);
+	void DrawBlueGameButton(aie::Renderer2D* renderer);
+	void DrawYellowGameButton(aie::Renderer2D* renderer);
+	void DrawGreenGameButton(aie::Renderer2D* renderer);
 	bool Update();
 
 private:
