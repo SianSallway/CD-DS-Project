@@ -8,6 +8,7 @@
 enum class GameState
 {
 	MenuState,
+	InstructState,
 	PlayState,
 	GameOverState,
 	GameWinState
@@ -35,6 +36,7 @@ protected:
 	
 	Button* playButton;
 	Button* retryButton;
+	Button* instructionButton;
 	Button* redGameButton;
 	Button* blueGameButton;
 	Button* yellowGameButton;

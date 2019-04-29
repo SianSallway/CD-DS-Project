@@ -26,8 +26,9 @@ bool SimonGameApp::startup() {
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
-	playButton = new Button("Play", 670, 350, 120, 50);
-	retryButton = new Button("Play again", 670, 350, 200, 50);
+	playButton = new Button("Play", 670, 450, 120, 50);
+	instructionButton = new Button("Instructions", 670, 350, 200, 50);
+	retryButton = new Button("Play again", 670, 350, 120, 50);
 	redGameButton = new Button(" ", 850, 350, 150, 150);
 	blueGameButton = new Button(" ", 1002, 350, 150, 150);
 	yellowGameButton = new Button(" ", 850, 198, 150, 150);
@@ -43,6 +44,7 @@ void SimonGameApp::shutdown() {
 	delete m_2dRenderer;
 	delete playButton;
 	delete retryButton;
+	delete instructionButton;
 	delete progBar;
 	delete redGameButton;
 	delete blueGameButton;
@@ -65,6 +67,18 @@ void SimonGameApp::update(float deltaTime) {
 			cout << "Play Button has been clicked" << endl;
 			currentState = GameState::PlayState;
 		}
+
+		if (instructionButton->Update())
+		{
+			cout << "Instruction Button has been clicked" << endl;
+			currentState = GameState::InstructState;
+		}
+
+		break;
+
+	case GameState::InstructState:
+
+
 
 		break;
 		
@@ -147,8 +161,11 @@ void SimonGameApp::draw() {
 	if (currentState == GameState::MenuState)
 	{
 		playButton->Draw(m_2dRenderer);
-		m_2dRenderer->drawText(m_font, "Welcome to Simon", 550, 600);
+		instructionButton->Draw(m_2dRenderer);
+		m_2dRenderer->drawText(m_font, "Welcome Player", 550, 600);
 		m_2dRenderer->drawText(m_font, "Developed by Sian Sallway", 923, 10);
+
+
 	}
 	else if (currentState == GameState::PlayState)
 	{
