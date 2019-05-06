@@ -14,6 +14,7 @@ enum class GameState
 {
 	MenuState,
 	InstructState,
+	FollowState,
 	PlayState,
 	GameOverState,
 	GameWinState
@@ -41,7 +42,7 @@ public:
 
 	float barValue = 0.f;
 	float timeElapsed = 0.f;
-	float timeDelay = 5.f;
+	float timeDelay = 2.f;
 
 protected:
 
@@ -71,6 +72,6 @@ private:
 	LinkList playerPatternList;
 	LinkList followPattern;
 	ListNode* listNode;
-	ListNode* currentPos;
+	ListNode* currentPos = nullptr;
 	int displayColour;
 };

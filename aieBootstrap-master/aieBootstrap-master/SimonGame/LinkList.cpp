@@ -9,17 +9,6 @@ bool LinkList::isEmpty() const
 	return headNode == nullptr;
 }
 
-//returns an iterator to the first element of the list
-void LinkList::Begin()
-{
-
-}
-
-//returns an iterator to a null element of the list
-void LinkList::End()
-{
-
-}
 
 //return the first element by value, assert if no elements 
 ListNode* LinkList::First()
@@ -40,29 +29,30 @@ void LinkList::PushFront(int value)
 	ListNode* currentNode = new ListNode(value);
 	currentNode->SetNext(headNode);
 	headNode = currentNode;
-	cout << "a value has been added to the front of the list Head Node: " << headNode << endl;
 
+	// was list emoty check?
+	if (tailNode == nullptr)
+		tailNode = headNode;
+
+	cout << "a value has been added to the front of the list Head Node: " << headNode->GetValue() << endl;
 }
 
 //adding a node to the end of the list
 void LinkList::PushBack(int value)
 {
-	//checks for empty or end
-	if (isEmpty())
-	{
-		cout << "This list is empty!\n" << endl;
-		PushFront(value);
-	}
-	else
-	{
-		ListNode* currentNode = new ListNode(value);
-		currentNode->SetNext(nullptr);
-		tailNode = currentNode;
+	ListNode* currentNode = new ListNode(value);
+	currentNode->SetNext(nullptr);
 
-		cout << "a value has been added to the end of the list Tail Node: " << tailNode << endl;
-	}
+	if (tailNode != nullptr)
+		tailNode->SetNext(currentNode);
 
+	tailNode = currentNode;
 
+	// was list emoty check?
+	if (headNode == nullptr)
+		headNode = tailNode;
+
+	cout << "a value has been added to the end of the list Tail Node: " << tailNode->GetValue() << endl;
 }
 
 
