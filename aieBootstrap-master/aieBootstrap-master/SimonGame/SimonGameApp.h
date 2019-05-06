@@ -66,10 +66,11 @@ protected:
 private:
 
 	GameState currentState;
-	Colour colourState;
+	Colour currentColour;
+	Colour colourGuessed;
 	LinkList playerPatternList;
 	LinkList followPattern;
 	ListNode* listNode;
 	ListNode* currentPos;
-	ListNode* displayColour;
+	int displayColour;
 };

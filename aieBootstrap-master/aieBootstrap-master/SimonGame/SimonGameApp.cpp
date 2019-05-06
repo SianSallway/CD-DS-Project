@@ -40,10 +40,18 @@ bool SimonGameApp::startup() {
 	followPattern.PushBack(Yellow);
 	followPattern.PushBack(Red);
 	followPattern.PushBack(Blue);
-	followPattern.PushBack(Yellow);
+	/*followPattern.PushBack(Yellow);
 	followPattern.PushBack(Green);
 	followPattern.PushBack(Green);
 	followPattern.PushBack(Blue);
+	followPattern.PushBack(Red);
+	followPattern.PushBack(Yellow);
+	followPattern.PushBack(Red);
+	followPattern.PushBack(Blue);
+	followPattern.PushBack(Yellow);
+	followPattern.PushBack(Green);
+	followPattern.PushBack(Green);
+	followPattern.PushBack(Blue);*/
 
 	return true;
 }
@@ -71,26 +79,7 @@ void SimonGameApp::update(float deltaTime) {
 
 	timeElapsed += deltaTime;
 
-	if (timeElapsed > timeDelay)
-	{
-		// display next colour in the sequence (follow List)
-		currentPos = followPattern.Last();
-
-		//checks for empty or end
-		if (followPattern.isEmpty())
-		{
-			cout << "This list is empty!\n" << endl;
-			//quit();
-		}
-
-		//store colour to display for if statement
-		//set render colour for box
-		currentPos = currentPos->GetNext();
-		cout << currentPos << endl;
-
-		timeElapsed = 0.f;
-	}
-
+	
 	switch (currentState)
 	{
 	case GameState::MenuState:
@@ -122,42 +111,63 @@ void SimonGameApp::update(float deltaTime) {
 
 	case GameState::PlayState:
 
+		if (timeElapsed > timeDelay)
+		{
+			// display next colour in the sequence (follow List)
+			currentPos = followPattern.First();
 
+			//store colour to display for if statement
+			//set render colour for box
+			currentPos = currentPos->GetNext();
+			cout << "Current position in this list is: " << currentPos << endl;
+			//cout << "This node is: " << currentPos->GetValue() << endl;
+
+			timeElapsed = 0.f;
+		}
 
 		//performs task based on player input, in this case if the red button has been clicked
 		if (redGameButton->Update())
 		{
 			cout << "Red Button has been clicked" << endl;
 			playerPatternList.PushBack(Red); // using 0
-			barValue += 10.f;
-			progBar->SetValue(barValue);
-
-
+			colourGuessed = Red;
+			
 		}
 		//performs task based on player input, in this case if the blue button has been clicked
 		if (blueGameButton->Update())
 		{
 			cout << "Blue Button has been clicked" << endl;
-			barValue += 10.f;
-			progBar->SetValue(barValue);
+		
 			playerPatternList.PushBack(Blue);
+			colourGuessed = Blue;
 		}
 		//performs task based on player input, in this case if the yellow button has been clicked
 		if (yellowGameButton->Update())
 		{
 			cout << "Yellow Button has been clicked" << endl;
-			barValue += 10.f;
-			progBar->SetValue(barValue);
+		
 			playerPatternList.PushBack(Yellow);
+			colourGuessed = Yellow;
 		}
 		//performs task based on player input, in this case if the green button has been clicked
 		if (greenGameButton->Update())
 		{
 			cout << "Green Button has been clicked" << endl;
+			playerPatternList.PushBack(Green);
+			colourGuessed = Green;
+		}
+
+		/*if (currentColour == colourGuessed)
+		{
 			barValue += 10.f;
 			progBar->SetValue(barValue);
-			playerPatternList.PushBack(Green);
 		}
+		else
+		{
+			//isGameOver = true;
+
+		}*/
+
 
 		if (progBar->GetValue() == 100)
 		{
@@ -223,25 +233,54 @@ void SimonGameApp::draw() {
 	else if (currentState == GameState::InstructState) //Is triggered when the instructions button is pressed
 	{
 		backButton->Draw(m_2dRenderer);												//Draws the back button to the Instructions Menu screen that will take you to the Main Menu 
-		m_2dRenderer->drawText(m_font, "How to Play", 550, 600);					//Draws stand-alone text that is only meant for display purposes
-		m_2dRenderer->drawText(m_font, "[Instructions will go here]", 550, 300);	//Draws stand-alone text that is only meant for display purposes
+		m_2dRenderer->drawText(m_font, "How to Play", 550, 680);					//Draws stand-alone text that is only meant for display purposes
+		m_2dRenderer->drawText(m_font, "The pattern will appear to you on your left, ", 300, 550);	//Draws stand-alone text that is only meant for display purposes
+		m_2dRenderer->drawText(m_font, "once the sequence is done press the buttons on your right ", 150, 450);	//Draws stand-alone text that is only meant for display purposes
+		m_2dRenderer->drawText(m_font, "and see how much you remember!", 400, 400);	//Draws stand-alone text that is only meant for display purposes
+		m_2dRenderer->drawText(m_font, "Your progress bar will tell you how you're doing as you recite it", 100, 250);	//Draws stand-alone text that is only meant for display purposes
+		m_2dRenderer->drawText(m_font, "Good Luck!", 550, 180);	//Draws stand-alone text that is only meant for display purposes
 	}
 	else if (currentState == GameState::PlayState) //Is triggered when the play button on the main menu is pressed OR if the retry button on the game over screen and game win scene is pressed
 	{
 		m_2dRenderer->drawText(m_font, "Memorise the pattern", 550, 600);			//Draws stand-alone text that is only meant for display purposes
 		m_2dRenderer->drawText(m_font, "Progress", 600, 490);						//Draws stand-alone text that is only meant for display purposes
-		m_2dRenderer->drawBox(300, 300, 150, 150, 0, 0);
 		progBar->Draw(m_2dRenderer);												//Draws a progress bar background that will become concealed as other buttons are pressed in the play state
 		progBar->SetValue(barValue);												//Draws a progress bar that will increase in size as other buttons are pressed and automatically sets it to being 'empty'
 		redGameButton->DrawRedGameButton(m_2dRenderer);								//Draws a square red button to the screen that will be used as part of the game play					
 		blueGameButton->DrawBlueGameButton(m_2dRenderer);							//Draws a square blue button to the screen that will be used as part of the game play
 		yellowGameButton->DrawYellowGameButton(m_2dRenderer);						//Draws a square yellow button to the screen that will be used as part of the game play
 		greenGameButton->DrawGreenGameButton(m_2dRenderer);							//Draws a square green button to the screen that will be used as part of the game play
+		m_2dRenderer->drawBox(280, 350, 150, 150, 0, 0);//red(L)
+		m_2dRenderer->drawBox(433, 350, 150, 150, 0, 0); //blue(R)
+		m_2dRenderer->drawBox(280, 198, 150, 150, 0, 0);//yellow(L)
+		m_2dRenderer->drawBox(433, 198, 150, 150, 0, 0); //green(R)
 
-																					//displayColour = currentPos->GetNext();
-
-
-
+		/*displayColour = currentPos->GetValue();
+		
+		if (displayColour == Red)
+		{
+			m_2dRenderer->setRenderColour(1, 0, 0, 1);
+			m_2dRenderer->drawBox(280, 350, 150, 150, 0, 0);
+			currentColour = Red;
+		}
+		else if (displayColour == Blue)
+		{
+			m_2dRenderer->setRenderColour(0, 0, 225, 1);
+			m_2dRenderer->drawBox(433, 350, 150, 150, 0, 0);
+			currentColour = Blue;
+		}
+		else if (displayColour == Yellow)
+		{
+			m_2dRenderer->setRenderColour(225, 255, 0, 1);
+			m_2dRenderer->drawBox(280, 198, 150, 150, 0, 0);
+			currentColour = Yellow;
+		}
+		else if (displayColour == Green)
+		{
+			m_2dRenderer->setRenderColour(0, 1, 0, 1);
+			m_2dRenderer->drawBox(433, 198, 150, 150, 0, 0);
+			currentColour = Green;
+		}*/
 	}
 	else if (currentState == GameState::GameOverState) //Is triggered when/if the player loses the game
 	{

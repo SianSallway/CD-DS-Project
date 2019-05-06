@@ -47,12 +47,21 @@ void LinkList::PushFront(int value)
 //adding a node to the end of the list
 void LinkList::PushBack(int value)
 {
+	//checks for empty or end
+	if (isEmpty())
+	{
+		cout << "This list is empty!\n" << endl;
+		PushFront(value);
+	}
+	else
+	{
+		ListNode* currentNode = new ListNode(value);
+		currentNode->SetNext(nullptr);
+		tailNode = currentNode;
 
-	ListNode* currentNode = new ListNode(value);
-	currentNode->SetNext(nullptr);
-	tailNode = currentNode;
+		cout << "a value has been added to the end of the list Tail Node: " << tailNode << endl;
+	}
 
-	cout << "a value has been added to the end of the list Tail Node: " << tailNode << endl;
 
 }
 

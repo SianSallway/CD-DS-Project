@@ -5,6 +5,11 @@ void ListNode::SetValue(int value)
 	nodeValue = value;
 }
 
+int ListNode::GetValue()
+{
+	return nodeValue;
+}
+
 ListNode::ListNode(int value)
 {
 	SetValue(value);

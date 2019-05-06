@@ -8,6 +8,7 @@ public:
 	void SetValue(int value);
 	void SetNext(ListNode* next);
 	ListNode* GetNext();
+	int GetValue();
 
 private:
 
