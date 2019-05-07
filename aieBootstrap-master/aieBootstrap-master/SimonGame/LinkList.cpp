@@ -44,13 +44,20 @@ void LinkList::PushBack(int value)
 	currentNode->SetNext(nullptr);
 
 	if (tailNode != nullptr)
+	{
 		tailNode->SetNext(currentNode);
+	}
 
 	tailNode = currentNode;
 
 	// was list emoty check?
 	if (headNode == nullptr)
+	{
 		headNode = tailNode;
+
+		cout << "a value has been added to the front of the list Head Node: " << headNode->GetValue() << endl;
+	}
+
 
 	cout << "a value has been added to the end of the list Tail Node: " << tailNode->GetValue() << endl;
 }

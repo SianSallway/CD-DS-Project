@@ -20,9 +20,6 @@ bool SimonGameApp::startup() {
 
 	//automatically sets the game state to the main menu state when the program starts
 	currentState = GameState::MenuState;
-	isGameOver = false;
-	playerHasWon = false;
-
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
@@ -36,29 +33,28 @@ bool SimonGameApp::startup() {
 	greenGameButton = new Button(" ", 1002, 198, 150, 150);
 	progBar = new ProgressBar(920, 500, 300, 20);
 
+	//Pushes colour onto the end of list, creating the pattern that the player will have to try and memorise 
+	followPattern.PushBack(Red);
+	followPattern.PushBack(Blue);
+	followPattern.PushBack(Yellow);
+	followPattern.PushBack(Green);
+	followPattern.PushBack(Yellow);
+	followPattern.PushBack(Green);
+	followPattern.PushBack(Red);
+	followPattern.PushBack(Blue);
 	followPattern.PushBack(Red);
 	followPattern.PushBack(Yellow);
 	followPattern.PushBack(Red);
 	followPattern.PushBack(Blue);
 	followPattern.PushBack(Yellow);
 	followPattern.PushBack(Green);
-	followPattern.PushBack(Green);
-	followPattern.PushBack(Blue);
-	followPattern.PushBack(Red);
 	followPattern.PushBack(Yellow);
-	followPattern.PushBack(Red);
-	followPattern.PushBack(Blue);
-	followPattern.PushBack(Yellow);
-	followPattern.PushBack(Green);
-	followPattern.PushBack(Green);
 	followPattern.PushBack(Blue);
 
-	// MOVE to when you start playing the computer pattern
 	// current position will start has the first node in the list 
 	currentPos = followPattern.First();
 
-	cout << "FOO " << currentPos->GetNext() << endl;
-
+	//cout << "FOO " << currentPos->GetNext() << endl;
 
 	return true;
 }
@@ -79,6 +75,34 @@ void SimonGameApp::shutdown() {
 
 }
 
+bool SimonGameApp::CompareList(ListNode* pNode, ListNode* fNode)
+{
+	pNode = playerPatternList.First();
+	fNode = followPattern.First();
+
+	if (pNode->GetValue() != fNode->GetValue())
+	{
+		cout << "Both lists are either empty OR not identical" << endl;
+		currentState = GameState::GameOverState;
+		barValue = 0.f;
+	}
+	else 
+	{
+		barValue += 1.f;
+		progBar->SetValue(barValue);
+		
+		pNode = pNode->GetNext();
+		fNode = fNode->GetNext();
+
+		if (pNode->GetValue() == fNode->GetValue())
+		{
+			cout << "identical!!!" << endl;
+			currentState = GameState::GameWinState;
+			return true;
+		}
+	}
+}
+
 void SimonGameApp::update(float deltaTime) {
 
 	// input example
@@ -86,7 +110,6 @@ void SimonGameApp::update(float deltaTime) {
 
 	timeElapsed += deltaTime;
 
-	
 	switch (currentState)
 	{
 	case GameState::MenuState:
@@ -103,7 +126,6 @@ void SimonGameApp::update(float deltaTime) {
 			cout << "Instruction Button has been clicked" << endl;
 			currentState = GameState::InstructState;
 		}
-
 		break;
 
 	case GameState::InstructState:
@@ -113,7 +135,6 @@ void SimonGameApp::update(float deltaTime) {
 			cout << "Back Button has been clicked" << endl;
 			currentState = GameState::MenuState;
 		}
-
 		break;
 
 	case GameState::FollowState:
@@ -128,14 +149,10 @@ void SimonGameApp::update(float deltaTime) {
 
 			timeElapsed = 0.f;
 		}
-
 		if (currentPos == followPattern.Last())
 		{
 			currentState = GameState::PlayState;
 		}
-
-
-
 		break;
 
 	case GameState::PlayState:
@@ -145,85 +162,62 @@ void SimonGameApp::update(float deltaTime) {
 		{
 			cout << "Red Button has been clicked" << endl;
 			playerPatternList.PushBack(Red); // using 0
-			//colourGuessed = Red;
-			
+			listCount += 1;
 		}
 		//performs task based on player input, in this case if the blue button has been clicked
 		if (blueGameButton->Update())
 		{
 			cout << "Blue Button has been clicked" << endl;
-		
 			playerPatternList.PushBack(Blue);
-			//colourGuessed = Blue;
+			listCount += 1;
 		}
 		//performs task based on player input, in this case if the yellow button has been clicked
 		if (yellowGameButton->Update())
 		{
 			cout << "Yellow Button has been clicked" << endl;
-		
 			playerPatternList.PushBack(Yellow);
-			//colourGuessed = Yellow;
+			listCount += 1;
 		}
 		//performs task based on player input, in this case if the green button has been clicked
 		if (greenGameButton->Update())
 		{
 			cout << "Green Button has been clicked" << endl;
 			playerPatternList.PushBack(Green);
-			//colourGuessed = Green;
+			listCount += 1;
 		}
 
-		/*if (currentColour == colourGuessed)
+		if (listCount == 15)
 		{
-			barValue += 10.f;
-			progBar->SetValue(barValue);
+			CompareList(playerNode, followNode);
 		}
-		else
-		{
-			//isGameOver = true;
-
-		}*/
-
-
-		if (progBar->GetValue() == 100)
-		{
-			playerHasWon = true;
-			currentState = GameState::GameWinState;
-			barValue = 0.f;
-		}
-
-		if (isGameOver == true)
-		{
-			playerHasWon = false;
-			currentState = GameState::GameOverState;
-		}
-
 		break;
 
 	case GameState::GameOverState:
 
 		if (retryButton->Update())
 		{
+			listCount = 0;
 			cout << "Replay Button has been clicked" << endl;
-			currentState = GameState::PlayState;
+			// current position will start has the first node in the list 
+			currentPos = followPattern.First();
+			currentState = GameState::FollowState;
 		}
-
 		break;
 
 	case GameState::GameWinState:
 
 		if (retryButton->Update())
 		{
+			listCount = 0;
 			cout << "Replay Button has been clicked" << endl;
-			currentState = GameState::PlayState;
+			// current position will start has the first node in the list 
+			currentPos = followPattern.First();
+			currentState = GameState::FollowState;
 		}
-
 		break;
-
 	default:
 		break;
 	}
-
-
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 		quit();
@@ -311,8 +305,6 @@ void SimonGameApp::draw() {
 		m_2dRenderer->drawBox(433, 350, 150, 150, 0, 0); //blue(R)
 		m_2dRenderer->drawBox(280, 198, 150, 150, 0, 0);//yellow(L)
 		m_2dRenderer->drawBox(433, 198, 150, 150, 0, 0); //green(R)
-
-		
 	}
 	else if (currentState == GameState::GameOverState) //Is triggered when/if the player loses the game
 	{

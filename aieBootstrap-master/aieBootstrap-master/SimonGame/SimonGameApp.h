@@ -40,9 +40,12 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
+	bool CompareList(ListNode* pNode, ListNode* fNode);
+
 	float barValue = 0.f;
 	float timeElapsed = 0.f;
-	float timeDelay = 2.f;
+	float timeDelay = 1.f;
+	int listCount = 0;
 
 protected:
 
@@ -68,10 +71,11 @@ private:
 
 	GameState currentState;
 	Colour currentColour;
-	Colour colourGuessed;
+	int colourGuessed;
 	LinkList playerPatternList;
 	LinkList followPattern;
-	ListNode* listNode;
+	ListNode* playerNode;
+	ListNode* followNode;
 	ListNode* currentPos = nullptr;
 	int displayColour;
 };
