@@ -3,6 +3,7 @@
 #include "Font.h"
 #include "Input.h"
 #include <iostream>
+#include <assert.h>
 
 using namespace std;
 
@@ -31,7 +32,7 @@ bool SimonGameApp::startup() {
 	blueGameButton = new Button(" ", 1002, 350, 150, 150);
 	yellowGameButton = new Button(" ", 850, 198, 150, 150);
 	greenGameButton = new Button(" ", 1002, 198, 150, 150);
-	progBar = new ProgressBar(920, 500, 300, 20);
+	progBar = new ProgressBar(650, 500, 300, 20);
 
 	//Pushes colour onto the end of list, creating the pattern that the player will have to try and memorise 
 	followPattern.PushBack(Red);
@@ -84,27 +85,42 @@ bool SimonGameApp::CompareList(ListNode* pNode, ListNode* fNode)
 	{
 		cout << "Both lists are either empty OR not identical" << endl;
 		currentState = GameState::GameOverState;
-		barValue = 0.f;
+		//barValue = 0.f;
 		return false;
 	}
 	else 
-	{
-		barValue += 1.f;
-		progBar->SetValue(barValue);
-		
-		pNode = pNode->GetNext();
-		fNode = fNode->GetNext();
+	{		
+		while (true)
+		{
+			pNode = pNode->GetNext();
+			fNode = fNode->GetNext();
 
-		if (pNode->GetValue() == fNode->GetValue())
-		{
-			cout << "identical!!!" << endl;
-			currentState = GameState::GameWinState;
-			return true;
-		}
-		else
-		{
-			currentState = GameState::GameOverState;
-			return false;
+			// Will be true if both lists are always the same length
+			if (pNode == nullptr)
+				assert(fNode == nullptr);
+
+			if (fNode == nullptr)
+				assert(pNode == nullptr);
+
+			if (pNode == nullptr)
+			{
+				// Reached end of list: all elements were identical
+				currentState = GameState::GameWinState;
+				return true;
+			}
+			else if (pNode->GetValue() == fNode->GetValue())
+			{
+				// still checking lists
+				cout << "identical!!!" << endl;
+				barValue += 1.f;
+				progBar->SetValue(barValue);
+			}
+			else
+			{
+				// elements were not identical
+				currentState = GameState::GameOverState;
+				return false;
+			}
 		}
 	}
 }
@@ -126,7 +142,6 @@ void SimonGameApp::update(float deltaTime) {
 			cout << "Play Button has been clicked" << endl;
 			currentState = GameState::FollowState;
 		}
-
 		if (instructionButton->Update())
 		{
 			cout << "Instruction Button has been clicked" << endl;
@@ -192,7 +207,7 @@ void SimonGameApp::update(float deltaTime) {
 			listCount += 1;
 		}
 
-		if (listCount == 15)
+		if (listCount == 16)
 		{
 			CompareList(playerNode, followNode);
 		}
@@ -215,6 +230,7 @@ void SimonGameApp::update(float deltaTime) {
 		if (retryButton->Update())
 		{
 			listCount = 0;
+			barValue = 0;
 			cout << "Replay Button has been clicked" << endl;
 			// current position will start has the first node in the list 
 			currentPos = followPattern.First();
@@ -252,16 +268,11 @@ void SimonGameApp::draw() {
 		m_2dRenderer->drawText(m_font, "The pattern will appear to you on your left, ", 300, 550);	//Draws stand-alone text that is only meant for display purposes
 		m_2dRenderer->drawText(m_font, "once the sequence is done press the buttons on your right ", 150, 450);	//Draws stand-alone text that is only meant for display purposes
 		m_2dRenderer->drawText(m_font, "and see how much you remember!", 400, 400);	//Draws stand-alone text that is only meant for display purposes
-		m_2dRenderer->drawText(m_font, "Your progress bar will tell you how you're doing as you recite it", 100, 250);	//Draws stand-alone text that is only meant for display purposes
-		m_2dRenderer->drawText(m_font, "Good Luck!", 550, 180);						//Draws stand-alone text that is only meant for display purposes
+		m_2dRenderer->drawText(m_font, "Good Luck!", 550, 250);						//Draws stand-alone text that is only meant for display purposes
 	}
 	else if (currentState == GameState::FollowState)
 	{
 		m_2dRenderer->drawText(m_font, "Watch the pattern", 550, 600);			//Draws stand-alone text that is only meant for display purposes
-		redGameButton->DrawRedGameButton(m_2dRenderer);								//Draws a square red button to the screen that will be used as part of the game play					
-		blueGameButton->DrawBlueGameButton(m_2dRenderer);							//Draws a square blue button to the screen that will be used as part of the game play
-		yellowGameButton->DrawYellowGameButton(m_2dRenderer);						//Draws a square yellow button to the screen that will be used as part of the game play
-		greenGameButton->DrawGreenGameButton(m_2dRenderer);							//Draws a square green button to the screen that will be used as part of the game play
 		m_2dRenderer->drawBox(280, 350, 150, 150, 0, 0);//red(L)
 		m_2dRenderer->drawBox(433, 350, 150, 150, 0, 0); //blue(R)
 		m_2dRenderer->drawBox(280, 198, 150, 150, 0, 0);//yellow(L)
@@ -275,34 +286,35 @@ void SimonGameApp::draw() {
 			{
 				m_2dRenderer->setRenderColour(1, 0, 0, 1);
 				m_2dRenderer->drawBox(280, 350, 150, 150, 0, 0);
+				m_2dRenderer->setRenderColour(1, 1, 1, 1);
 				//currentColour = Red;
 			}
 			else if (displayColour == Blue)
 			{
 				m_2dRenderer->setRenderColour(0, 0, 1, 1);
 				m_2dRenderer->drawBox(433, 350, 150, 150, 0, 0);
+				m_2dRenderer->setRenderColour(1, 1, 1, 1);
 				//currentColour = Blue;
 			}
 			else if (displayColour == Yellow)
 			{
 				m_2dRenderer->setRenderColour(1, 1, 0, 1);
 				m_2dRenderer->drawBox(280, 198, 150, 150, 0, 0);
+				m_2dRenderer->setRenderColour(1, 1, 1, 1);
 				//currentColour = Yellow;
 			}
 			else if (displayColour == Green)
 			{
 				m_2dRenderer->setRenderColour(0, 1, 0, 1);
 				m_2dRenderer->drawBox(433, 198, 150, 150, 0, 0);
+				m_2dRenderer->setRenderColour(1, 1, 1, 1);
 				//currentColour = Green;
 			}
 		}
 	}
 	else if (currentState == GameState::PlayState) //Is triggered when the play button on the main menu is pressed OR if the retry button on the game over screen and game win scene is pressed
 	{
-		m_2dRenderer->drawText(m_font, "Memorise the pattern", 550, 600);			//Draws stand-alone text that is only meant for display purposes
-		m_2dRenderer->drawText(m_font, "Progress", 600, 490);						//Draws stand-alone text that is only meant for display purposes
-		progBar->Draw(m_2dRenderer);												//Draws a progress bar background that will become concealed as other buttons are pressed in the play state
-		progBar->SetValue(barValue);												//Draws a progress bar that will increase in size as other buttons are pressed and automatically sets it to being 'empty'
+		m_2dRenderer->drawText(m_font, "Copy the pattern", 550, 600);			//Draws stand-alone text that is only meant for display purposes
 		redGameButton->DrawRedGameButton(m_2dRenderer);								//Draws a square red button to the screen that will be used as part of the game play					
 		blueGameButton->DrawBlueGameButton(m_2dRenderer);							//Draws a square blue button to the screen that will be used as part of the game play
 		yellowGameButton->DrawYellowGameButton(m_2dRenderer);						//Draws a square yellow button to the screen that will be used as part of the game play
@@ -316,7 +328,9 @@ void SimonGameApp::draw() {
 	{
 		m_2dRenderer->drawText(m_font, "Game Over :(", 550, 600);					//Draws stand-alone text that is only meant for display purposes and lets the player know that they've lost
 		retryButton->Draw(m_2dRenderer);											//Draws the retry button to the screen that will trigger the play state when pressed, restarting the game
-
+		m_2dRenderer->drawText(m_font, "Accuracy", 300, 490);						//Draws stand-alone text that is only meant for display purposes
+		progBar->Draw(m_2dRenderer);												//Draws a progress bar background that will become concealed as other buttons are pressed in the play state
+		progBar->SetValue(barValue);												//Draws a progress bar that will increase in size as other buttons are pressed and automatically sets it to being 'empty'
 	}
 	else if (currentState == GameState::GameWinState) //Is triggered when/if the player wins the game
 	{

@@ -33,8 +33,8 @@ ProgressBar::ProgressBar(float xPos, float yPos, float width, float height)
 	barYPos = yPos;
 	barWidth = width;
 	barHeight = height;
-	barCurrentValue = 15;
-	barMaxValue = 15;
+	barCurrentValue = 16;
+	barMaxValue = 16;
 
 }
 
