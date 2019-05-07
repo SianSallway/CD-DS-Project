@@ -85,7 +85,7 @@ bool SimonGameApp::CompareList(ListNode* pNode, ListNode* fNode)
 	{
 		cout << "Both lists are either empty OR not identical" << endl;
 		currentState = GameState::GameOverState;
-		//barValue = 0.f;
+		barValue += 1.f;
 		return false;
 	}
 	else 
@@ -129,7 +129,6 @@ void SimonGameApp::update(float deltaTime) {
 
 	// input example
 	aie::Input* input = aie::Input::getInstance();
-
 	timeElapsed += deltaTime;
 
 	switch (currentState)
