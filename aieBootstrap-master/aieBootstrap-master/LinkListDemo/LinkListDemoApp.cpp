@@ -22,8 +22,10 @@ bool LinkListDemoApp::startup() {
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
-	pushBackButton = new ScreenButton("Add to back", 300, 330, 190, 50);
 	pushFrontButton = new ScreenButton("Add to front", 300, 400, 190, 50);
+	pushBackButton = new ScreenButton("Add to back", 300, 340, 190, 50);
+	popFrontButton = new ScreenButton("Remove from front", 300, 230, 235, 50);
+	popBackButton = new ScreenButton("Remove from back", 300, 170, 235, 50);
 
 	return true;
 }
@@ -34,6 +36,8 @@ void LinkListDemoApp::shutdown() {
 	delete m_2dRenderer;
 	delete pushBackButton;
 	delete pushFrontButton;
+	delete popBackButton;
+	delete popFrontButton;
 }
 
 void LinkListDemoApp::update(float deltaTime) {
@@ -49,10 +53,20 @@ void LinkListDemoApp::update(float deltaTime) {
 		cout << "Push to back Button has been clicked" << endl;
 		userList.PushBack(value);
 	}
-
 	if (pushFrontButton->Update())
 	{
 		cout << "Push to front Button has been clicked" << endl;
+		userList.PushFront(value);
+	}
+	if (popFrontButton->Update())
+	{
+		cout << "Remove from front Button has been clicked" << endl;
+		userList.PopFront();
+	}
+	if (popBackButton->Update())
+	{
+		cout << "Remove from back Button has been clicked" << endl;
+		userList.PopBack();
 	}
 
 	// exit the application
@@ -73,6 +87,8 @@ void LinkListDemoApp::draw() {
 	m_2dRenderer->drawText(m_font, "Developed by Sian Sallway", 895, 10);
 	pushBackButton->Draw(m_2dRenderer);
 	pushFrontButton->Draw(m_2dRenderer);
+	popBackButton->Draw(m_2dRenderer);
+	popFrontButton->Draw(m_2dRenderer);
 	
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 10, 10);

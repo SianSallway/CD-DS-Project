@@ -27,5 +27,7 @@ protected:
 	List userList;
 	ScreenButton* pushBackButton;
 	ScreenButton* pushFrontButton;
+	ScreenButton* popFrontButton;
+	ScreenButton* popBackButton;
 
 };

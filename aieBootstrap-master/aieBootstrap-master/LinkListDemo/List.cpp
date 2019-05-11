@@ -1,5 +1,4 @@
 #include "List.h"
-
 #include <iostream>
 
 using namespace std;
@@ -9,7 +8,6 @@ bool List::isEmpty() const
 {
 	return headNode == nullptr;
 }
-
 
 //return the first element by value, assert if no elements 
 Node* List::First()
@@ -22,7 +20,6 @@ Node* List::Last()
 {
 	return tailNode;
 }
-
 
 //adding a node to the start of the list 
 void List::PushFront(int value)
@@ -58,22 +55,19 @@ void List::PushBack(int value)
 
 		cout << "a value has been added to the front of the list Head Node: " << headNode->GetValue() << endl;
 	}
-
-
 	cout << "a value has been added to the end of the list Tail Node: " << tailNode->GetValue() << endl;
 }
-
 
 //removes the first node in the list 
 void List::PopFront()
 {
 	if (headNode != nullptr)
 	{
-		//set list.headNode to list.headNode.next 
-
-		//let n be list.headNode
-
-		//delete n
+		Node* currentNode = headNode;
+		headNode = headNode->GetNext();
+		delete currentNode;
+		
+		cout << "the front element has been deleted, the new first element is: " << headNode->GetValue() << endl;
 	}
 }
 

@@ -8,10 +8,6 @@ public:
 
 	//returns if the list is empty or not 
 	bool isEmpty() const;
-	//returns an iterator to the first element of the list
-	void Begin();
-	//returns an iterator to a null element of the list
-	void End();
 	//return the first element by value, assert if no elements 
 	Node* First();
 	//return the last element by value, assert if no elements 
