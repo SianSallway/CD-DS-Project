@@ -1,5 +1,6 @@
 #include "List.h"
 #include <iostream>
+#include <assert.h>
 
 using namespace std;
 
@@ -77,6 +78,42 @@ void List::PopBack()
 	if (tailNode != nullptr)
 	{
 		tailNode = nullptr;
+	}
+}
+
+//removes all elements from the list
+void List::ClearList()
+{
+
+}
+
+//removes an element from the list by its value 
+void List::Remove(int value)
+{
+	//get headNode of list 
+	//compare headNode to value, if not the same get the next node 
+	//of they are the same set headNode to currentNode, headNode will equal nextNode, delete currentNode
+
+	Node* currentNode = headNode;
+
+	while (true)
+	{
+		if (currentNode == nullptr)
+		{
+			assert(currentNode == nullptr);
+		}
+
+		if (currentNode->GetValue() == value)
+		{
+			headNode = headNode->GetNext();
+			delete currentNode;
+			cout << value << " has been removed from the list" << endl;
+			break;
+		}
+		else
+		{
+			currentNode = currentNode->GetNext();
+		}
 	}
 }
 

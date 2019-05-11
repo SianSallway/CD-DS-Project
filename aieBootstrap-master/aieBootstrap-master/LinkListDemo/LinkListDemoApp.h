@@ -17,8 +17,6 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
-	int userInput;
-
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;
@@ -29,5 +27,7 @@ protected:
 	ScreenButton* pushFrontButton;
 	ScreenButton* popFrontButton;
 	ScreenButton* popBackButton;
+	ScreenButton* clearListButton;
+	ScreenButton* removeButton;
 
 };

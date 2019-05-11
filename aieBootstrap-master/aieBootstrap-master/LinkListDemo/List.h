@@ -13,7 +13,6 @@ public:
 	//return the last element by value, assert if no elements 
 	Node* Last();
 
-
 	//---FUNTIONS FOR ADDING---
 
 	//adding an element to the start of the list 
@@ -32,7 +31,7 @@ public:
 	//removes an element from the list by its value 
 	void Remove(int value);
 	//removes all elements from the list
-	void ClearList(List* list);
+	void ClearList();
 
 private:
 

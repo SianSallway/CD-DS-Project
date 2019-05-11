@@ -26,6 +26,8 @@ bool LinkListDemoApp::startup() {
 	pushBackButton = new ScreenButton("Add to back", 300, 340, 190, 50);
 	popFrontButton = new ScreenButton("Remove from front", 300, 230, 235, 50);
 	popBackButton = new ScreenButton("Remove from back", 300, 170, 235, 50);
+	clearListButton = new ScreenButton("Clear List", 600, 170, 190, 50);
+	removeButton = new ScreenButton("Remove Element", 600, 270, 200, 50);
 
 	return true;
 }
@@ -38,6 +40,8 @@ void LinkListDemoApp::shutdown() {
 	delete pushFrontButton;
 	delete popBackButton;
 	delete popFrontButton;
+	delete clearListButton;
+	delete removeButton;
 }
 
 void LinkListDemoApp::update(float deltaTime) {
@@ -68,6 +72,16 @@ void LinkListDemoApp::update(float deltaTime) {
 		cout << "Remove from back Button has been clicked" << endl;
 		userList.PopBack();
 	}
+	if (clearListButton->Update())
+	{
+		cout << "Clear List Button has been clicked" << endl;
+		userList.ClearList();
+	}
+	if (removeButton->Update())
+	{
+		cout << "Remove Button has been clicked" << endl;
+		userList.Remove(value);
+	}
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -89,6 +103,8 @@ void LinkListDemoApp::draw() {
 	pushFrontButton->Draw(m_2dRenderer);
 	popBackButton->Draw(m_2dRenderer);
 	popFrontButton->Draw(m_2dRenderer);
+	clearListButton->Draw(m_2dRenderer);
+	removeButton->Draw(m_2dRenderer);
 	
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 10, 10);
