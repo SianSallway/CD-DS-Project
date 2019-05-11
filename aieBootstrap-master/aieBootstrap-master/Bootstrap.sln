@@ -31,6 +31,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sorting", "Sorting\Sorting.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AnimatedSprite", "AnimatedSprite\AnimatedSprite.vcxproj", "{5B39C9A0-5656-4F5C-B009-66EDB2DB4C9F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LinkListDemo", "LinkListDemo\LinkListDemo.vcxproj", "{CCF48452-9DA4-40AD-AF18-D8F49730D082}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -119,6 +121,14 @@ Global
 		{5B39C9A0-5656-4F5C-B009-66EDB2DB4C9F}.Release|x64.ActiveCfg = Release|x64
 		{5B39C9A0-5656-4F5C-B009-66EDB2DB4C9F}.Release|x86.ActiveCfg = Release|Win32
 		{5B39C9A0-5656-4F5C-B009-66EDB2DB4C9F}.Release|x86.Build.0 = Release|Win32
+		{CCF48452-9DA4-40AD-AF18-D8F49730D082}.Debug|x64.ActiveCfg = Debug|x64
+		{CCF48452-9DA4-40AD-AF18-D8F49730D082}.Debug|x64.Build.0 = Debug|x64
+		{CCF48452-9DA4-40AD-AF18-D8F49730D082}.Debug|x86.ActiveCfg = Debug|Win32
+		{CCF48452-9DA4-40AD-AF18-D8F49730D082}.Debug|x86.Build.0 = Debug|Win32
+		{CCF48452-9DA4-40AD-AF18-D8F49730D082}.Release|x64.ActiveCfg = Release|x64
+		{CCF48452-9DA4-40AD-AF18-D8F49730D082}.Release|x64.Build.0 = Release|x64
+		{CCF48452-9DA4-40AD-AF18-D8F49730D082}.Release|x86.ActiveCfg = Release|Win32
+		{CCF48452-9DA4-40AD-AF18-D8F49730D082}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
