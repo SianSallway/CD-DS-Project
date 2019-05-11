@@ -17,11 +17,15 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
+	int userInput;
+
 protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
 
-	ScreenButton* pushButton;
+	List userList;
+	ScreenButton* pushBackButton;
+	ScreenButton* pushFrontButton;
 
 };
