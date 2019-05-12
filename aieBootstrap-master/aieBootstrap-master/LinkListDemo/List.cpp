@@ -83,37 +83,72 @@ void List::PopBack()
 
 //removes all elements from the list
 void List::ClearList()
-{
+{ 
+	while (true)
+	{
+		Node* currentNode = headNode;
 
+		if (currentNode == nullptr) //if the headNode is equal to null then the list is empty or something went wrong
+		{
+			assert(currentNode == nullptr);
+			break;
+		}
+		else if (currentNode != nullptr)
+		{
+			headNode = headNode->GetNext();
+			delete currentNode;
+		}
+
+	}
 }
 
 //removes an element from the list by its value 
 void List::Remove(int value)
 {
-	//get headNode of list 
-	//compare headNode to value, if not the same get the next node 
-	//of they are the same set headNode to currentNode, headNode will equal nextNode, delete currentNode
-
-	Node* currentNode = headNode;
+	Node* currentNode = headNode; //set currentNode to be the headNode of list
 
 	while (true)
 	{
-		if (currentNode == nullptr)
+		if (currentNode == nullptr) //if the headNode is equal to null then the list is empty or something went wrong
 		{
 			assert(currentNode == nullptr);
 		}
 
-		if (currentNode->GetValue() == value)
+		if (currentNode->GetValue() == value) 	//compare headNode to currentNode, if they are the same set nextNode to headNode and delete currentNode
 		{
 			headNode = headNode->GetNext();
 			delete currentNode;
 			cout << value << " has been removed from the list" << endl;
 			break;
 		}
-		else
+		else //if not the same get the next element in the list to compare
 		{
-			currentNode = currentNode->GetNext();
+			currentNode = currentNode->GetNext();	
 		}
+	}
+}
+
+//returns the amount of elements in the list
+int List::Count()
+{
+	int counter = 0;
+	Node* currentNode = headNode;
+
+	while (true)
+	{
+		if (currentNode != nullptr) 	
+		{
+			counter += 1;
+			currentNode = currentNode->GetNext();
+
+		
+		}
+		else if (currentNode == nullptr) //if the headNode is equal to null then the list is empty or something went wrong
+		{
+			cout << "The list has " << counter <<" elements"<< endl;
+			return counter;
+		}
+
 	}
 }
 

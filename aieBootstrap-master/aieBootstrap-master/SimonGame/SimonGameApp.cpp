@@ -85,7 +85,6 @@ bool SimonGameApp::CompareList(ListNode* pNode, ListNode* fNode)
 	{
 		cout << "Both lists are either empty OR not identical" << endl;
 		currentState = GameState::GameOverState;
-		barValue += 1.f;
 		return false;
 	}
 	else 

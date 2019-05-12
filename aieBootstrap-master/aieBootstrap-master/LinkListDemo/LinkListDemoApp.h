@@ -29,5 +29,6 @@ protected:
 	ScreenButton* popBackButton;
 	ScreenButton* clearListButton;
 	ScreenButton* removeButton;
+	ScreenButton* countButton;
 
 };

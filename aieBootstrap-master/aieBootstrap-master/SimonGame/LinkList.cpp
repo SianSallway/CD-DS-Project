@@ -48,7 +48,7 @@ void LinkList::PushBack(int value)
 
 	tailNode = currentNode;
 
-	// was list emoty check?
+	// was list empty check?
 	if (headNode == nullptr)
 	{
 		headNode = tailNode;
