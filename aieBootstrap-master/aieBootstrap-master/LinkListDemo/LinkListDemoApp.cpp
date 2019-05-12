@@ -56,38 +56,46 @@ void LinkListDemoApp::update(float deltaTime) {
 
 	if (pushBackButton->Update())
 	{
+		currentAction = Action::PushBack;
 		cout << "Push to back Button has been clicked" << endl;
 		userList.PushBack(value);
 	}
 	if (pushFrontButton->Update())
 	{
+		currentAction = Action::PushFront;
 		cout << "Push to front Button has been clicked" << endl;
 		userList.PushFront(value);
 	}
 	if (popFrontButton->Update())
 	{
+		currentAction = Action::PopFront;
 		cout << "Remove from front Button has been clicked" << endl;
 		userList.PopFront();
+
 	}
 	if (popBackButton->Update())
 	{
+		currentAction = Action::PopBack;
 		cout << "Remove from back Button has been clicked" << endl;
 		userList.PopBack();
 	}
 	if (clearListButton->Update())
 	{
+		currentAction = Action::Clearing;
 		cout << "Clear List Button has been clicked" << endl;
 		userList.ClearList();
 	}
 	if (removeButton->Update())
 	{
+		currentAction = Action::Removing;
 		cout << "Remove Button has been clicked" << endl;
 		userList.Remove(value);
 	}
 	if (countButton->Update())
 	{
+		currentAction = Action::Counting;
 		cout << "Count Button has been clicked" << endl;
-		userList.Count();
+		userList.Count(m_2dRenderer);
 	}
 
 	// exit the application
@@ -115,6 +123,43 @@ void LinkListDemoApp::draw() {
 	clearListButton->Draw(m_2dRenderer);
 	removeButton->Draw(m_2dRenderer);
 	countButton->Draw(m_2dRenderer);
+
+	if (currentAction == Action::PushBack)
+	{
+		m_2dRenderer->drawText(m_font, "You've added an element ", 600, 400);
+		m_2dRenderer->drawText(m_font, "to the back of your list", 600, 350);
+	}
+	if (currentAction == Action::PushFront)
+	{
+		m_2dRenderer->drawText(m_font, "You've added an element ", 600, 400);
+		m_2dRenderer->drawText(m_font, "to the front of your list", 600, 350);
+	}
+	if (currentAction == Action::PopFront)
+	{
+		m_2dRenderer->drawText(m_font, "You've removed the first element ", 600, 400);
+		m_2dRenderer->drawText(m_font, "from your list", 600, 350);
+	}
+	if (currentAction == Action::PopBack)
+	{
+		m_2dRenderer->drawText(m_font, "You've removed the last element ", 600, 400);
+		m_2dRenderer->drawText(m_font, "from your list", 600, 350);
+	}
+	if (currentAction == Action::Clearing)
+	{
+		m_2dRenderer->drawText(m_font, "You've removed all elements ", 600, 400);
+		m_2dRenderer->drawText(m_font, "from your list", 600, 350);
+	}
+	if (currentAction == Action::Removing)
+	{
+		m_2dRenderer->drawText(m_font, "You've removed all elements matching ", 600, 400);
+		m_2dRenderer->drawText(m_font, "your chosen value from your list", 600, 350);
+	}
+	if (currentAction == Action::Counting)
+	{
+		m_2dRenderer->drawText(m_font, "The total amount of elements in ", 600, 400);
+		m_2dRenderer->drawText(m_font, "your list can be seen in the console window ", 500, 350);
+	}
+
 
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 10, 10);

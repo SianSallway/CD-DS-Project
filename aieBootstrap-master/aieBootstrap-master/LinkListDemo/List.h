@@ -1,5 +1,8 @@
 #pragma once
+#include "Renderer2D.h"
+#include"Font.h"
 #include "Node.h"
+
 class List
 {
 public:
@@ -31,7 +34,7 @@ public:
 	//removes all elements from the list
 	void ClearList();
 	//returns the amount of elements in the list
-	int Count();
+	void Count(aie::Renderer2D* renderer);
 
 private:
 

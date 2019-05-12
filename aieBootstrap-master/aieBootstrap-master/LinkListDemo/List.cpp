@@ -129,7 +129,7 @@ void List::Remove(int value)
 }
 
 //returns the amount of elements in the list
-int List::Count()
+void List::Count(aie::Renderer2D* renderer)
 {
 	int counter = 0;
 	Node* currentNode = headNode;
@@ -140,15 +140,12 @@ int List::Count()
 		{
 			counter += 1;
 			currentNode = currentNode->GetNext();
-
-		
 		}
 		else if (currentNode == nullptr) //if the headNode is equal to null then the list is empty or something went wrong
 		{
 			cout << "The list has " << counter <<" elements"<< endl;
-			return counter;
+			break;
 		}
-
 	}
 }
 

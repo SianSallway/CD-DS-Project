@@ -5,6 +5,17 @@
 #include "Application.h"
 #include "Renderer2D.h"
 
+enum class Action
+{
+	PushBack,
+	PushFront,
+	PopBack,
+	PopFront,
+	Removing,
+	Counting,
+	Clearing
+};
+
 class LinkListDemoApp : public aie::Application {
 public:
 
@@ -23,6 +34,7 @@ protected:
 	aie::Font*			m_font;
 
 	List userList;
+	Action currentAction;
 	ScreenButton* pushBackButton;
 	ScreenButton* pushFrontButton;
 	ScreenButton* popFrontButton;
