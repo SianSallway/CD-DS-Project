@@ -1,7 +1,15 @@
 #pragma once
-
+#include "DynamicArray.h"
+#include "UIButton.h"
 #include "Application.h"
 #include "Renderer2D.h"
+
+enum class Action
+{
+	Create,
+	AddToEnd,
+	RemoveEnd
+};
 
 class DynamicArrayDemoApp : public aie::Application {
 public:
@@ -19,4 +27,10 @@ protected:
 
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
+
+	DynamicArray array;
+	Action currentAction;
+	UIButton* addBackButton;
+	UIButton* removeEndButton;
+	UIButton* createArrayButton;
 };
