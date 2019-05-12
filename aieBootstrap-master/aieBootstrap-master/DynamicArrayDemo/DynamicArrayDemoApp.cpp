@@ -26,7 +26,8 @@ bool DynamicArrayDemoApp::startup() {
 	addBackButton = new UIButton("Add on end", 200, 390, 190, 50);
 	removeEndButton = new UIButton("Remove end", 200, 330, 190, 50);
 	addMiddleButton = new UIButton("Add to middle", 200, 270, 220, 50);
-	removeMiddleButton = new UIButton("Remove from middle", 200, 210, 250, 50);
+	removePosButton = new UIButton("Remove from position", 200, 210, 300, 50);
+	deleteButton = new UIButton("Delete Array", 200, 150, 190, 50);
 
 	return true;
 }
@@ -38,8 +39,9 @@ void DynamicArrayDemoApp::shutdown() {
 	delete addBackButton;
 	delete removeEndButton;
 	delete createArrayButton;
-	delete removeMiddleButton;
+	delete removePosButton;
 	delete addMiddleButton;
+	delete deleteButton;
 }
 
 void DynamicArrayDemoApp::update(float deltaTime) {
@@ -70,13 +72,20 @@ void DynamicArrayDemoApp::update(float deltaTime) {
 	{
 		currentAction = Action::AddToMiddle;
 		cout << "Add Middle Button has been clicked" << endl;
+		array.AddToMiddle(value);
 		
 	}
-	if (removeMiddleButton->Update())
+	if (removePosButton->Update())
 	{
-		currentAction = Action::RemoveFromMiddle;
-		cout << "Remove Middle Button has been clicked" << endl;
-		
+		currentAction = Action::RemoveFromPos;
+		cout << "Remove Pos Button has been clicked" << endl;
+		array.RemovePos(value);
+	}
+	if (deleteButton->Update())
+	{
+		currentAction = Action::DeleteArray;
+		cout << "Delete Button has been clicked" << endl;
+		array.~DynamicArray();
 	}
 
 	// exit the application
@@ -98,8 +107,9 @@ void DynamicArrayDemoApp::draw() {
 	addBackButton->Draw(m_2dRenderer);
 	removeEndButton->Draw(m_2dRenderer);
 	createArrayButton->Draw(m_2dRenderer);
-	removeMiddleButton->Draw(m_2dRenderer);
+	removePosButton->Draw(m_2dRenderer);
 	addMiddleButton->Draw(m_2dRenderer);
+	deleteButton->Draw(m_2dRenderer);
 
 	if (currentAction == Action::Create)
 	{
@@ -120,10 +130,14 @@ void DynamicArrayDemoApp::draw() {
 		m_2dRenderer->drawText(m_font, "You've added a value to the middle ", 600, 400);
 		m_2dRenderer->drawText(m_font, "of the array", 600, 350);
 	}
-	if (currentAction == Action::RemoveFromMiddle)
+	if (currentAction == Action::RemoveFromPos)
 	{
-		m_2dRenderer->drawText(m_font, "You've removed a value from the middle ", 600, 400);
-		m_2dRenderer->drawText(m_font, "of the array", 600, 350);
+		m_2dRenderer->drawText(m_font, "You've removed a value from your ", 600, 400);
+		m_2dRenderer->drawText(m_font, "chosen place in the array", 600, 350);
+	}
+	if (currentAction == Action::DeleteArray)
+	{
+		m_2dRenderer->drawText(m_font, "Your array has been deleted ", 600, 400);
 	}
 
 	// output some text, uses the last used colour

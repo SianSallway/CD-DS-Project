@@ -11,8 +11,12 @@ public:
 
 	//adding a new element to the end of the array
 	void AddToEnd(int newElement);
+	//adds elements to the middle of the array
+	void AddToMiddle(int newElement);
 	//removing an element from the end of the array
 	void RemoveEnd();
+	//remove elements from the middle of the array
+	void RemovePos(int position);
 	//altering the size of the array
 	void ExpandArray();
 	//initializes array

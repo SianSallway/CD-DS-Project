@@ -10,7 +10,8 @@ enum class Action
 	AddToEnd,
 	RemoveEnd,
 	AddToMiddle,
-	RemoveFromMiddle
+	RemoveFromPos,
+	DeleteArray
 };
 
 class DynamicArrayDemoApp : public aie::Application {
@@ -35,6 +36,7 @@ protected:
 	UIButton* addBackButton;
 	UIButton* removeEndButton;
 	UIButton* createArrayButton;
-	UIButton* removeMiddleButton;
+	UIButton* removePosButton;
 	UIButton* addMiddleButton;
+	UIButton* deleteButton;
 };

@@ -27,6 +27,21 @@ void DynamicArray::AddToEnd(int newElement)
 	}
 }
 
+//adds elements to the middle of the array
+void DynamicArray::AddToMiddle(int newElement)
+{
+	int position = numOfElements / 2; //middle of array
+
+	for (size_t i = 0; i < position; i++)
+	{
+		dynArray[position] = newElement;
+		cout << "Element has been added to the middle of the array: " << newElement << endl;
+	}
+
+	//cout << dynArray[capacity] << " " << endl;
+
+}
+
 //removing an element from the end of the array
 void DynamicArray::RemoveEnd()
 {
@@ -39,6 +54,20 @@ void DynamicArray::RemoveEnd()
 		dynArray[numOfElements - 1] = 0;
 		cout << "The last element of the array has been removed" << endl;
 	}
+}
+
+//remove elements from the middle of the array
+void DynamicArray::RemovePos(int position)
+{
+	int* tempArray = new int[capacity];
+
+	for (size_t i = position; i < numOfElements; i++) //copying the arrays data up one slot
+	{
+		tempArray[i] = dynArray[i];
+		dynArray[i] = dynArray[i + 1];
+		tempArray = dynArray;
+	}
+	//cout << dynArray[capacity] << " " << endl;
 }
 
 //initializes array
@@ -80,6 +109,7 @@ int DynamicArray::GetIndex(int index)
 	return index;
 }
 
+
 DynamicArray::DynamicArray()
 {
 	capacity = 10; //default size
@@ -90,4 +120,5 @@ DynamicArray::DynamicArray()
 DynamicArray::~DynamicArray()
 {
 	delete [] dynArray; //frees memory 
+	cout << "The array has been deleted" << endl;
 }
