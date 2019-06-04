@@ -2,7 +2,7 @@
 #include "Input.h"
 #include <string>
 
-
+//passes in the name of the bootstrap renderer that will be used to render the button to the screen
 void Button::Draw(aie::Renderer2D* renderer)
 {
 	//drawing a box for the button background
@@ -20,36 +20,36 @@ void Button::Draw(aie::Renderer2D* renderer)
 	renderer->drawText(font, buttonText, centredXPos, centredYPos);
 }
 
+//passes in the name of the bootstrap renderer that will be used to render the button to the screen
 void Button::DrawRedGameButton(aie::Renderer2D* renderer)
 {
 	renderer->setRenderColour(1, 0, 0, 1);
 	renderer->drawBox(btnXPos, btnYPos, btnWidth, btnHeight);
 	renderer->setRenderColour(1, 1, 1, 1);
-
 }
 
+//passes in the name of the bootstrap renderer that will be used to render the button to the screen
 void Button::DrawBlueGameButton(aie::Renderer2D* renderer)
 {
 	renderer->setRenderColour(0, 0, 225, 1);
 	renderer->drawBox(btnXPos, btnYPos, btnWidth, btnHeight);
 	renderer->setRenderColour(1, 1, 1, 1);
-
 }
 
+//passes in the name of the bootstrap renderer that will be used to render the button to the screen
 void Button::DrawYellowGameButton(aie::Renderer2D* renderer)
 {
 	renderer->setRenderColour(225, 255, 0, 1);
 	renderer->drawBox(btnXPos, btnYPos, btnWidth, btnHeight);
 	renderer->setRenderColour(1, 1, 1, 1);
-
 }
 
+//passes in the name of the bootstrap renderer that will be used to render the button to the screen
 void Button::DrawGreenGameButton(aie::Renderer2D* renderer)
 {
 	renderer->setRenderColour(0, 1, 0, 1);
 	renderer->drawBox(btnXPos, btnYPos, btnWidth, btnHeight);
 	renderer->setRenderColour(1, 1, 1, 1);
-
 }
 
 bool Button::Update()
@@ -76,13 +76,16 @@ bool Button::Update()
 	return false;
 }
 
+//passes in a char array that will be the text rendered on the button
+//passes in two floats to indicate the amount of pixels horizontally across or vertically along the screen the button will be placed
+//passes in two floats to indicate the width and height of the box rendered around the text of the button
 Button::Button(const char* btnText, float xPos, float yPos, float width, float height)
 {
 	//Storing the text that will be on the button
 	strcpy_s(buttonText, 64, btnText);
 
 	//Load a font to display the buttons text 
-	font = new aie::Font("./font/consolas.ttf", 24);
+	font = new aie::Font("../../../../bin/font/consolas.ttf", 24);
 
 	//Storing the buttons position and dimentions
 	btnXPos = xPos;

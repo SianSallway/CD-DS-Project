@@ -23,7 +23,7 @@ bool SimonGameApp::startup() {
 	currentState = GameState::MenuState;
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
-	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
+	m_font = new aie::Font("../../../../bin/font/consolas.ttf", 32);
 	playButton = new Button("Play", 670, 350, 120, 50);
 	retryButton = new Button("Play again", 670, 350, 200, 50);
 	instructionButton = new Button("Instructions", 670, 250, 250, 50);
@@ -76,21 +76,26 @@ void SimonGameApp::shutdown() {
 
 }
 
+//passes in two ListNode pointers to loop through both lists and compare each element value
+//depending on the outcome, either the GameOverState or the GameWinState is triggered
 bool SimonGameApp::CompareList(ListNode* pNode, ListNode* fNode)
 {
+	//sets the passed in nodes to the first node of their respective list
 	pNode = playerPatternList.First();
 	fNode = followPattern.First();
 
+	//if the first elements are not equal then the player has lost already! 
 	if (pNode->GetValue() != fNode->GetValue())
 	{
 		cout << "Both lists are either empty OR not identical" << endl;
 		currentState = GameState::GameOverState;
 		return false;
 	}
-	else 
+	else //if they are equal continue comparing each element
 	{		
 		while (true)
 		{
+			//stes the passed in nodes to the next node in their respective list
 			pNode = pNode->GetNext();
 			fNode = fNode->GetNext();
 
@@ -135,12 +140,13 @@ void SimonGameApp::update(float deltaTime) {
 	case GameState::MenuState:
 
 		//performs task based on player input, in this case if the play button has been clicked
-		if (playButton->Update())
+		if (playButton->Update()) 
 		{
 			cout << "Play Button has been clicked" << endl;
 			currentState = GameState::FollowState;
 		}
-		if (instructionButton->Update())
+		//performs task based on player input, in this case if the instructions button has been clicked
+		if (instructionButton->Update()) 
 		{
 			cout << "Instruction Button has been clicked" << endl;
 			currentState = GameState::InstructState;
@@ -149,7 +155,8 @@ void SimonGameApp::update(float deltaTime) {
 
 	case GameState::InstructState:
 
-		if (backButton->Update())
+		//performs task based on player input, in this case if the back button has been clicked
+		if (backButton->Update()) 
 		{
 			cout << "Back Button has been clicked" << endl;
 			currentState = GameState::MenuState;
@@ -161,6 +168,7 @@ void SimonGameApp::update(float deltaTime) {
 		if (currentPos == nullptr)
 			break;
 
+		//if the amount of time passed is greater than the time delay display the colour based on the value of the next element in the list  
 		if (timeElapsed > timeDelay)
 		{
 			currentPos = currentPos->GetNext();
@@ -168,6 +176,7 @@ void SimonGameApp::update(float deltaTime) {
 
 			timeElapsed = 0.f;
 		}
+		//trigger the PlayState once all colours have been displayed
 		if (currentPos == followPattern.Last())
 		{
 			currentState = GameState::PlayState;
@@ -205,6 +214,7 @@ void SimonGameApp::update(float deltaTime) {
 			listCount += 1;
 		}
 
+		//if the players list is 'full' the lists are ready to be compared
 		if (listCount == 16)
 		{
 			CompareList(playerNode, followNode);
@@ -225,6 +235,7 @@ void SimonGameApp::update(float deltaTime) {
 
 	case GameState::GameWinState:
 
+		//performs task based on player input, in this case if the retry button has been clicked
 		if (retryButton->Update())
 		{
 			listCount = 0;
@@ -270,16 +281,19 @@ void SimonGameApp::draw() {
 	}
 	else if (currentState == GameState::FollowState)
 	{
-		m_2dRenderer->drawText(m_font, "Watch the pattern", 550, 600);			//Draws stand-alone text that is only meant for display purposes
+		m_2dRenderer->drawText(m_font, "Watch the pattern", 550, 600);				//Draws stand-alone text that is only meant for display purposes
 		m_2dRenderer->drawBox(280, 350, 150, 150, 0, 0);//red(L)
 		m_2dRenderer->drawBox(433, 350, 150, 150, 0, 0); //blue(R)
 		m_2dRenderer->drawBox(280, 198, 150, 150, 0, 0);//yellow(L)
 		m_2dRenderer->drawBox(433, 198, 150, 150, 0, 0); //green(R)
 
+		 //if the current position in the followPattern list is not the end display the following
 		if (currentPos != nullptr)
 		{
+			//sets displayColour to the value stored in the element currently being looped through 
 			displayColour = currentPos->GetValue();
 
+			//depending on the value of displayColour, a colour will be displayed on its respective button
 			if (displayColour == Red)
 			{
 				m_2dRenderer->setRenderColour(1, 0, 0, 1);

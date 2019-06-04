@@ -49,7 +49,7 @@ ScreenButton::ScreenButton(const char* btnText, float xPos, float yPos, float wi
 	strcpy_s(buttonText, 64, btnText);
 
 	//Load a font to display the buttons text 
-	font = new aie::Font("./font/consolas.ttf", 24);
+	font = new aie::Font("../../../../bin/font/consolas.ttf", 24);
 
 	//Storing the buttons position and dimentions
 	btnXPos = xPos;

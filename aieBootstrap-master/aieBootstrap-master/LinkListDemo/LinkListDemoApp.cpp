@@ -21,7 +21,7 @@ bool LinkListDemoApp::startup() {
 
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
-	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
+	m_font = new aie::Font("../../../../bin/font/consolas.ttf", 32);
 	pushFrontButton = new ScreenButton("Add to front", 200, 450, 190, 50);
 	pushBackButton = new ScreenButton("Add to back", 200, 390, 190, 50);
 	popFrontButton = new ScreenButton("Remove from front", 200, 290, 235, 50);

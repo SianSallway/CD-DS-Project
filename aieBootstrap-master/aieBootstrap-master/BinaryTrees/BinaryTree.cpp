@@ -3,6 +3,8 @@
 #include "BinaryTreesApp.h"
 #include <iostream>
 
+using namespace std;
+
 void BinaryTree::draw(aie::Renderer2D* renderer, TreeNode* selected)
 {
 	draw(renderer, m_pRoot, 640, 680, 640, selected);
@@ -39,7 +41,7 @@ bool BinaryTree::isEmpty() const
 
 void BinaryTree::insert(int a_nValue)
 {
-	std::cout << "Insert value: " << a_nValue << std::endl;
+	cout << "Insert value: " << a_nValue << endl;
 
 	if (isEmpty())
 	{
@@ -99,12 +101,12 @@ bool BinaryTree::findNode(int a_nSearchValue, TreeNode** ppOutNode, TreeNode** p
 		else if (a_nSearchValue < currentNode->getData())
 		{
 			currentParent = currentNode;
-			currentNode = currentNode->getLeft();
+			currentNode = currentNode->getRight();
 		}
 		else
 		{
 			currentParent = currentNode;
-			currentNode = currentNode->getRight();
+			currentNode = currentNode->getLeft();
 		}
 
 	}
@@ -128,7 +130,20 @@ TreeNode* BinaryTree::find(int a_nValue)
 
 void BinaryTree::remove(int a_nValue)
 {
-	//find(a_nValue);
+	find(a_nValue);
+	cout << "found" << endl;
+	TreeNode* currentNode;
+	TreeNode* minimumNode;
+	currentNode->SetData(a_nValue);
+	
+	if (currentNode->hasRight())
+	{
+		currentNode->getRight();
+	}
+	else if (currentNode->hasLeft())
+	{
+		currentNode->getLeft();
+	}
 }
 
 BinaryTree::BinaryTree()

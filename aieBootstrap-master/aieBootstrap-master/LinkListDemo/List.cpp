@@ -4,7 +4,7 @@
 
 using namespace std;
 
-//returns if the list is empty or not 
+//returns if the list is empty or not depending on if the head node is null
 bool List::isEmpty() const
 {
 	return headNode == nullptr;
@@ -22,21 +22,25 @@ Node* List::Last()
 	return tailNode;
 }
 
-//adding a node to the start of the list 
+//adding a node to the start of the list assigning it the integer being passed in
 void List::PushFront(int value)
 {
+	//set the current node to the value been added
 	Node* currentNode = new Node(value);
+	//set the current headNode to be the node next to currentNode
 	currentNode->SetNext(headNode);
+	//set currentNode to be the new headNode
 	headNode = currentNode;
 
-	// was list emoty check?
+	// was list empty check?
 	if (tailNode == nullptr)
 		tailNode = headNode;
 
+	//print the value added
 	cout << "a value has been added to the front of the list Head Node: " << headNode->GetValue() << endl;
 }
 
-//adding a node to the end of the list
+//adding an element to the end of the list assigning it the integer being passed in
 void List::PushBack(int value)
 {
 	Node* currentNode = new Node(value);
@@ -102,7 +106,7 @@ void List::ClearList()
 	}
 }
 
-//removes an element from the list by its value 
+//removes an element from the list by its value, this being the integer passed in
 void List::Remove(int value)
 {
 	Node* currentNode = headNode; //set currentNode to be the headNode of list
@@ -129,19 +133,24 @@ void List::Remove(int value)
 }
 
 //returns the amount of elements in the list
-void List::Count(aie::Renderer2D* renderer)
+void List::Count()
 {
 	int counter = 0;
 	Node* currentNode = headNode;
 
 	while (true)
 	{
-		if (currentNode != nullptr) 	
+		if (headNode == nullptr) //if the headNode is equal to null then the list is empty or something went wrong
+		{
+			cout << "The list has no elements" << endl;
+			break;
+		}
+		else if (currentNode != nullptr) 	
 		{
 			counter += 1;
 			currentNode = currentNode->GetNext();
 		}
-		else if (currentNode == nullptr) //if the headNode is equal to null then the list is empty or something went wrong
+		else if (currentNode == nullptr) 
 		{
 			cout << "The list has " << counter <<" elements"<< endl;
 			break;
