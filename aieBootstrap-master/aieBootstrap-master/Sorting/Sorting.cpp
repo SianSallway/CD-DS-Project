@@ -76,7 +76,7 @@ void InsertionSort(int array[], int length)
 			array[j + 1] = key;
 		}
 	}
-}\
+}
 
 int Partition(int array[], int p, int r)
 {

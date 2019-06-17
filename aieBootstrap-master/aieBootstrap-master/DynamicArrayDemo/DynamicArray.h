@@ -24,6 +24,9 @@ public:
 	//returns array index
 	int GetIndex(int index);
 
+	//sorts array elements using insertion sort 
+	void SortList();
+
 protected:
 
 	int* dynArray;		//pointer to array itself

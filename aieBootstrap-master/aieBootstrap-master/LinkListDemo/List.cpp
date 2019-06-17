@@ -79,9 +79,23 @@ void List::PopFront()
 //removes a node from the back of the list 
 void List::PopBack()
 {
-	if (tailNode != nullptr)
+	Node* currentNode = headNode;
+
+	while (true)
 	{
-		tailNode = nullptr;
+		if (headNode != nullptr)
+		{
+			if (currentNode->GetNext() == tailNode)
+			{
+				delete tailNode;
+				tailNode = currentNode;
+			}
+			else
+			{
+				currentNode = currentNode->GetNext();
+			}
+
+		}
 	}
 }
 
