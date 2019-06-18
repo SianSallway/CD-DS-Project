@@ -171,7 +171,6 @@ void LinkListDemoApp::draw() {
 		m_2dRenderer->drawText(m_font, "your list can be seen in the console window ", 500, 350);
 	}
 
-
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(m_font, "Press ESC to quit", 10, 10);
 

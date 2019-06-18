@@ -16,30 +16,26 @@ void List::PrintList()
 	//set current node to the head node
 	Node* currentNode = headNode;
 
+	cout << "------------------" << endl;
+
 	if (currentNode == nullptr) //if the headNode is equal to null then the list is empty or something went wrong
 	{
 		cout << "No list to print" << endl;
 	}
 	else
 	{ 
-		cout << currentNode->GetValue() << ", " << endl;
+		cout << currentNode->GetValue() << "  ";
 
-		while (true)
+		while (currentNode->GetNext() != nullptr)
 		{
 			currentNode = currentNode->GetNext();
 
-			if (currentNode->GetNext() == tailNode)
-			{
-				cout << currentNode->GetValue() << ", " << endl;
-				cout << tailNode->GetValue() << endl;
-				cout << "End of list" << endl;
-				break;
-			}
+			cout << currentNode->GetValue() << "  ";
 
-			cout << currentNode->GetValue() << ", " << endl;
 		}
+
+		cout << endl << "------------------" << endl;
 	}
-	
 }
 
 //return the first element by value, assert if no elements 
@@ -70,6 +66,8 @@ void List::PushFront(int value)
 
 	//print the value added
 	cout << "a value has been added to the front of the list Head Node: " << headNode->GetValue() << endl;
+
+	PrintList();
 }
 
 //adding an element to the end of the list assigning it the integer being passed in
@@ -93,6 +91,8 @@ void List::PushBack(int value)
 		cout << "a value has been added to the front of the list Head Node: " << headNode->GetValue() << endl;
 	}
 	cout << "a value has been added to the end of the list Tail Node: " << tailNode->GetValue() << endl;
+
+	PrintList();
 }
 
 //removes the first node in the list 
@@ -111,6 +111,8 @@ void List::PopFront()
 		
 		cout << "the front element has been deleted, the new first element is: " << headNode->GetValue() << endl;
 	}
+
+	PrintList();
 }
 
 //removes a node from the back of the list 
@@ -119,26 +121,34 @@ void List::PopBack()
 	//set current node to the first element of the list
 	Node* currentNode = headNode;
 
-	while (true)
+	while (currentNode != nullptr)
 	{
-		if (currentNode != nullptr)
+		if (currentNode == tailNode)
 		{
-			//if the node next to the current node is the tail node, current node will become the new tail node
-			if (currentNode->GetNext() == tailNode)
-			{
-				//delete current tail node
-				delete tailNode;
+			delete tailNode;
+			tailNode = nullptr;
+			headNode = nullptr;
+			break;
+		}
 
-				//set tail node to the current node
-				tailNode = currentNode;
-				break;
-			}
-			else
-			{
-				currentNode = currentNode->GetNext();
-			}
+		//if the node next to the current node is the tail node, current node will become the new tail node
+		if (currentNode->GetNext() == tailNode)
+		{
+			//delete current tail node
+			delete tailNode;
+
+			//set tail node to the current node
+			tailNode = currentNode;
+			tailNode->SetNext(nullptr);
+			break;
+		}
+		else
+		{
+			currentNode = currentNode->GetNext();
 		}
 	}
+
+	PrintList();
 }
 
 //loops through and removes all elements from the list
@@ -168,7 +178,7 @@ void List::ClearList()
 	}
 }
 
-//removes an element from the list by its value, this being the integer passed in
+//removes an element from the list by its value, this being the integer passed in (first one it finds)
 void List::Remove(int value) //FIX
 {
 	Node* nodeToRemove;
@@ -177,15 +187,41 @@ void List::Remove(int value) //FIX
 	if (currentNode == nullptr) //if the headNode is equal to null then the list is empty or something went wrong
 	{
 		assert(currentNode == nullptr);
+		return;
 	}
 	else
 	{
-		while (true)
+		if (currentNode->GetValue() == value) //compare headNode to the value entered, if they are the same set nextNode to headNode and delete currentNode
 		{
-			if (currentNode->GetValue() == value) 	//compare headNode to currentNode, if they are the same set nextNode to headNode and delete currentNode
+			// only one element 
+			if (tailNode == headNode)
 			{
-				nodeToRemove = currentNode;
-				currentNode = currentNode->GetNext();
+				tailNode = nullptr;
+			}
+
+			headNode = headNode->GetNext();
+			delete currentNode;
+			cout << value << " has been removed from the list" << endl;
+			return;
+		}
+
+		while (currentNode->GetNext() != nullptr)
+		{
+			if (currentNode->GetNext()->GetValue() == value) 	//compare headNode to currentNode, if they are the same set nextNode to headNode and delete currentNode
+			{
+				nodeToRemove = currentNode->GetNext();
+
+
+				if (nodeToRemove->GetNext() != nullptr)
+				{
+					currentNode->SetNext(nodeToRemove->GetNext());
+				}
+				else
+				{
+					// Node I am trying to remove is the tailNode
+					tailNode = currentNode;
+					currentNode->SetNext(nullptr);
+				}
 
 				delete nodeToRemove;
 
@@ -198,12 +234,8 @@ void List::Remove(int value) //FIX
 			}
 		}
 	}
-	/*if (currentNode->GetValue() == value) 	//compare headNode to currentNode, if they are the same set nextNode to headNode and delete currentNode
-	{
-		headNode = headNode->GetNext();
-		delete currentNode;
-		cout << value << " has been removed from the list" << endl;
-	}*/
+
+	PrintList();
 }
 
 //returns the amount of elements in the list
@@ -224,7 +256,7 @@ void List::Count()//FIX
 			counter += 1;
 			currentNode = currentNode->GetNext();
 		}
-		else if (currentNode == nullptr) 
+		else if (currentNode == nullptr)
 		{
 			cout << "The list has " << counter <<" elements"<< endl;
 			break;
