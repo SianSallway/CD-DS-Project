@@ -6,9 +6,10 @@ public:
 	DynamicArray();
 	~DynamicArray();
 
+	int operator [] (int index);
+
 	//returns if the array is empty or not
 	bool isEmpty();
-
 	//adding a new element to the end of the array
 	void AddToEnd(int newElement);
 	//adds elements to the middle of the array
@@ -25,7 +26,9 @@ public:
 	int GetIndex(int index);
 
 	//sorts array elements using insertion sort 
-	void SortList();
+	void SortArray();
+
+	void PrintArray(DynamicArray array);
 
 protected:
 

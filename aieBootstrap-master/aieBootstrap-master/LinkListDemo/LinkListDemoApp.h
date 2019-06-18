@@ -13,7 +13,8 @@ enum class Action
 	PopFront,
 	Removing,
 	Counting,
-	Clearing
+	Clearing, 
+	Printing
 };
 
 class LinkListDemoApp : public aie::Application {

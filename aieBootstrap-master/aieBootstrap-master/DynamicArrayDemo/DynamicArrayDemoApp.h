@@ -11,7 +11,9 @@ enum class Action
 	RemoveEnd,
 	AddToMiddle,
 	RemoveFromPos,
-	DeleteArray
+	DeleteArray,
+	PrintArray,
+	SortArray
 };
 
 class DynamicArrayDemoApp : public aie::Application {

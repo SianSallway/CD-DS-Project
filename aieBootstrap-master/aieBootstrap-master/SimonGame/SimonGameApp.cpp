@@ -95,7 +95,7 @@ bool SimonGameApp::CompareList(ListNode* pNode, ListNode* fNode)
 	{		
 		while (true)
 		{
-			//stes the passed in nodes to the next node in their respective list
+			//sets the passed in nodes to the next node in their respective list
 			pNode = pNode->GetNext();
 			fNode = fNode->GetNext();
 

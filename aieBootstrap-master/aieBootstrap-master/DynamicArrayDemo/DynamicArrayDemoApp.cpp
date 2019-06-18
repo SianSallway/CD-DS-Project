@@ -7,6 +7,8 @@
 
 using namespace std;
 
+//#define STANDALONEBUILD
+
 DynamicArrayDemoApp::DynamicArrayDemoApp() {
 
 }
@@ -21,7 +23,11 @@ bool DynamicArrayDemoApp::startup() {
 
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
+#ifdef STANDALONEBUILD
 	m_font = new aie::Font("../../../../bin/font/consolas.ttf", 32);
+#else
+	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
+#endif
 	createArrayButton = new UIButton("Create Array", 200, 450, 190, 50);
 	addBackButton = new UIButton("Add on end", 200, 390, 190, 50);
 	removeEndButton = new UIButton("Remove end", 200, 330, 190, 50);
@@ -56,7 +62,7 @@ void DynamicArrayDemoApp::update(float deltaTime) {
 	{
 		currentAction = Action::Create;
 	}
-	if (addBackButton->Update())
+	if (addBackButton->Update() || input->isKeyDown(aie::INPUT_KEY_A))
 	{
 		currentAction = Action::AddToEnd;
 		cout << "Add To End Button has been clicked" << endl;
@@ -87,6 +93,16 @@ void DynamicArrayDemoApp::update(float deltaTime) {
 		cout << "Delete Button has been clicked" << endl;
 		array.~DynamicArray();
 	}
+	if (input->isKeyDown(aie::INPUT_KEY_P))
+	{
+		currentAction = Action::PrintArray;
+		array.PrintArray(array);
+	}
+	if (input->isKeyDown(aie::INPUT_KEY_S))
+	{
+		currentAction = Action::SortArray;
+		array.SortArray();
+	}
 
 	// exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
@@ -104,12 +120,12 @@ void DynamicArrayDemoApp::draw() {
 	// draw your stuff here!
 	m_2dRenderer->drawText(m_font, "Dynamic Array Demo", 500, 650);
 	m_2dRenderer->drawText(m_font, "Developed by Sian Sallway", 895, 10);
-	addBackButton->Draw(m_2dRenderer);
+	/*addBackButton->Draw(m_2dRenderer);
 	removeEndButton->Draw(m_2dRenderer);
 	createArrayButton->Draw(m_2dRenderer);
 	removePosButton->Draw(m_2dRenderer);
 	addMiddleButton->Draw(m_2dRenderer);
-	deleteButton->Draw(m_2dRenderer);
+	deleteButton->Draw(m_2dRenderer);*/
 
 	if (currentAction == Action::Create)
 	{

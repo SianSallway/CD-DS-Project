@@ -17,6 +17,10 @@ public:
 	//return the last element by value, assert if no elements 
 	Node* Last();
 
+	//prints all elements to the console 
+	void PrintList();
+	
+
 	//---FUNTIONS FOR ADDING---
 
 	//adding a node to the start of the list assigning it the integer being passed in 

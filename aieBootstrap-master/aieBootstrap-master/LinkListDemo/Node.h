@@ -1,6 +1,6 @@
 #pragma once
 
-//handles the behaiviour and properties of each list element
+//handles the behaiviour and properties of each link list element
 class Node
 {
 public:

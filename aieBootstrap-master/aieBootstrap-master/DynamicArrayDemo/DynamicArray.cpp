@@ -4,12 +4,45 @@
 
 using namespace std;
 
+int DynamicArray::operator [] (int index)
+{
+	return dynArray[index];
+}
+
 //returns if the array is empty or not
 bool DynamicArray::isEmpty()
 {
 	if (numOfElements == 0)
 	{
 		return true;
+	}
+}
+
+//prints all array elements to the console 
+void DynamicArray::PrintArray(DynamicArray array)
+{
+	for (int i = 0; i < capacity; ++i)
+	{
+		cout << array[i] << endl;
+	}
+}
+
+//sorts array elements using insertion sort 
+void DynamicArray::SortArray()
+{
+	for (int i = 0; i < capacity; i++)
+	{
+		int key = dynArray[i];
+		int j = i - 1;
+
+		while (j >= 0 && dynArray[j] > key)
+		{
+			dynArray[j + 1] = dynArray[j];
+
+			j = j - 1;
+
+			dynArray[j + 1] = key;
+		}
 	}
 }
 
@@ -119,6 +152,6 @@ DynamicArray::DynamicArray()
 
 DynamicArray::~DynamicArray()
 {
-	delete [] dynArray; //frees memory 
-	cout << "The array has been deleted" << endl;
+	//delete [] dynArray; //frees memory 
+	//cout << "The array has been deleted" << endl;
 }

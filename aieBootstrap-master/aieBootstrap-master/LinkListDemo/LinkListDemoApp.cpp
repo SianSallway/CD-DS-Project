@@ -7,6 +7,8 @@
 
 using namespace std;
 
+//#define STANDALONEBUILD
+
 LinkListDemoApp::LinkListDemoApp() {
 
 }
@@ -21,7 +23,11 @@ bool LinkListDemoApp::startup() {
 
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
+#ifdef STANDALONEBUILD
 	m_font = new aie::Font("../../../../bin/font/consolas.ttf", 32);
+#else
+	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
+#endif
 	pushFrontButton = new ScreenButton("Add to front", 200, 450, 190, 50);
 	pushBackButton = new ScreenButton("Add to back", 200, 390, 190, 50);
 	popFrontButton = new ScreenButton("Remove from front", 200, 290, 235, 50);
@@ -54,48 +60,53 @@ void LinkListDemoApp::update(float deltaTime) {
 	static int value = 0;
 	ImGui::InputInt("Value", &value);
 
-	if (pushBackButton->Update())
+	if (pushBackButton->Update()|| input->wasKeyPressed(aie::INPUT_KEY_A))
 	{
 		currentAction = Action::PushBack;
 		cout << "Push to back Button has been clicked" << endl;
 		userList.PushBack(value);
 	}
-	if (pushFrontButton->Update())
+	if (pushFrontButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_D))
 	{
 		currentAction = Action::PushFront;
 		cout << "Push to front Button has been clicked" << endl;
 		userList.PushFront(value);
 	}
-	if (popFrontButton->Update())
+	if (popFrontButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_T))
 	{
 		currentAction = Action::PopFront;
 		cout << "Remove from front Button has been clicked" << endl;
 		userList.PopFront();
 
 	}
-	if (popBackButton->Update())
+	if (popBackButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_S))
 	{
 		currentAction = Action::PopBack;
 		cout << "Remove from back Button has been clicked" << endl;
 		userList.PopBack();
 	}
-	if (clearListButton->Update())
+	if (clearListButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_C))
 	{
 		currentAction = Action::Clearing;
 		cout << "Clear List Button has been clicked" << endl;
 		userList.ClearList();
 	}
-	if (removeButton->Update())
+	if (removeButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_R))
 	{
 		currentAction = Action::Removing;
 		cout << "Remove Button has been clicked" << endl;
 		userList.Remove(value);
 	}
-	if (countButton->Update())
+	if (countButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_G))
 	{
 		currentAction = Action::Counting;
 		cout << "Count Button has been clicked" << endl;
-		userList.Count(m_2dRenderer);
+		userList.Count();
+	}
+	if (input->isKeyDown(aie::INPUT_KEY_P))
+	{
+		currentAction = Action::Printing;
+		userList.PrintList();
 	}
 
 	// exit the application
@@ -116,13 +127,13 @@ void LinkListDemoApp::draw() {
 	m_2dRenderer->drawText(m_font, "For adding to list", 50, 500);
 	m_2dRenderer->drawText(m_font, "For removing from list", 50, 330);
 	m_2dRenderer->drawText(m_font, "Developed by Sian Sallway", 895, 10);
-	pushBackButton->Draw(m_2dRenderer);
+	/*pushBackButton->Draw(m_2dRenderer);
 	pushFrontButton->Draw(m_2dRenderer);
 	popBackButton->Draw(m_2dRenderer);
 	popFrontButton->Draw(m_2dRenderer);
 	clearListButton->Draw(m_2dRenderer);
 	removeButton->Draw(m_2dRenderer);
-	countButton->Draw(m_2dRenderer);
+	countButton->Draw(m_2dRenderer);*/
 
 	if (currentAction == Action::PushBack)
 	{
