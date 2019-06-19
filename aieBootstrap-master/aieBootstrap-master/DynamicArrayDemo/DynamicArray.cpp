@@ -4,9 +4,67 @@
 
 using namespace std;
 
-int DynamicArray::operator [] (int index)
+DynamicArray::DynamicArray()
 {
-	return dynArray[index];
+	capacity = 10; //default size
+	numOfElements = 0; //no elements in array when created
+	dynArray = new int[capacity]; //array of integers
+
+	for ( int i = 0; i < capacity; i++)
+	{
+		dynArray[i] = 0;
+	}
+
+	nextIndex = 0;
+}
+
+DynamicArray::~DynamicArray()
+{
+	delete [] dynArray; //frees memory 
+	//cout << "The array has been deleted" << endl;
+}
+
+int& DynamicArray::operator [] (int index)
+{	
+	//this element in the array? if not allocate a bigger array
+	if (index >= capacity)
+	{
+		ExpandArray(index);
+	}
+
+	//if the index is greater than the capacity 
+	if (index > capacity)
+	{
+		nextIndex = index + 1;
+	}
+
+	//a reference to the element 
+	return *(dynArray + index);
+}
+
+//altering the size of the array
+void DynamicArray::ExpandArray(int index)
+{
+	//doubling the capacity of the array
+	capacity = index + 10;
+
+	int* tempArray = new int[capacity]; //creating a new array that is larger to copy the original arrays data into
+
+	for (int i = 0; i < nextIndex; i++) //copying over the previous arrays data
+	{
+		tempArray[i] = dynArray[i];
+	}
+
+	for (int j = nextIndex; j < capacity; j++)
+	{
+		tempArray[j] = 0;
+	}
+
+	delete[]dynArray;
+
+	dynArray = tempArray;
+
+	//Initialize(numOfElements);
 }
 
 //returns if the array is empty or not
@@ -18,13 +76,22 @@ bool DynamicArray::isEmpty()
 	}
 }
 
+int DynamicArray::Size()
+{
+	return capacity;
+}
+
 //prints all array elements to the console 
 void DynamicArray::PrintArray(DynamicArray array)
 {
-	for (int i = 0; i < capacity; ++i)
+	cout << "------------------" << endl;
+
+	for (int i = 0; i < Size(); ++i)
 	{
-		cout << array[i] << endl;
+		cout << array[i] << " " << "\n";
 	}
+
+	cout << "------------------" << endl;
 }
 
 //sorts array elements using insertion sort 
@@ -49,15 +116,19 @@ void DynamicArray::SortArray()
 //adding a new element to the end of the array
 void DynamicArray::AddToEnd(int newElement)
 {
-	if (numOfElements >= capacity) //if the number of elements has reached or exceeded the arrays capacity then expand it
+	if (nextIndex == capacity) //if the number of elements has reached or exceeded the arrays capacity then expand it
 	{
-		ExpandArray();
+		ExpandArray(newElement);
 	}
-	else
+	/*else
 	{
 		dynArray[numOfElements + 1] = newElement;
 		cout << "Element has been added to the end of the array: " << newElement << endl;
-	}
+		cout << "Number of elements: " << numOfElements << endl;
+	}*/
+
+	dynArray[nextIndex++] = newElement;
+	cout << "Added: " << newElement << endl;
 }
 
 //adds elements to the middle of the array
@@ -112,25 +183,6 @@ void DynamicArray::Initialize(int position)
 	}
 }
 
-//altering the size of the array
-void DynamicArray::ExpandArray()
-{
-	capacity *= 2; //doubling the capacity of the array
-
-	int* tempArray = new int[capacity]; //creating a new array that is larger to copy the original arrays data into
-
-	for (size_t i = 0; i < numOfElements; i++) //copying over the previous arrays data
-	{
-		tempArray[i] = dynArray[i];
-	}
-
-	delete[]dynArray;
-
-	dynArray = tempArray;
-
-	Initialize(numOfElements);
-}
-
 //returns array index
 int DynamicArray::GetIndex(int index)
 {
@@ -140,18 +192,4 @@ int DynamicArray::GetIndex(int index)
 	}
 
 	return index;
-}
-
-
-DynamicArray::DynamicArray()
-{
-	capacity = 10; //default size
-	numOfElements = 0; //no elements in array when created
-	dynArray = new int[capacity]; //array of integers
-}
-
-DynamicArray::~DynamicArray()
-{
-	//delete [] dynArray; //frees memory 
-	//cout << "The array has been deleted" << endl;
 }

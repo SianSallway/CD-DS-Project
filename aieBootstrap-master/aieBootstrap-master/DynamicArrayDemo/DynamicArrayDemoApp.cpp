@@ -58,36 +58,36 @@ void DynamicArrayDemoApp::update(float deltaTime) {
 	static int value = 0;
 	ImGui::InputInt("Value", &value);
 
-	if (createArrayButton->Update())
+	/*if (createArrayButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_C))
 	{
 		currentAction = Action::Create;
-	}
-	if (addBackButton->Update() || input->isKeyDown(aie::INPUT_KEY_A))
+	}*/
+	if (addBackButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_A))
 	{
 		currentAction = Action::AddToEnd;
 		cout << "Add To End Button has been clicked" << endl;
 		array.AddToEnd(value);
 	}
-	if (removeEndButton->Update())
+	if (removeEndButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_B))
 	{
 		currentAction = Action::RemoveEnd;
 		cout << "Remove End Button has been clicked" << endl;
 		array.RemoveEnd();
 	}
-	if (addMiddleButton->Update())
+	if (addMiddleButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_M))
 	{
 		currentAction = Action::AddToMiddle;
 		cout << "Add Middle Button has been clicked" << endl;
 		array.AddToMiddle(value);
 		
 	}
-	if (removePosButton->Update())
+	if (removePosButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_R))
 	{
 		currentAction = Action::RemoveFromPos;
 		cout << "Remove Pos Button has been clicked" << endl;
 		array.RemovePos(value);
 	}
-	if (deleteButton->Update())
+	if (deleteButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_D))
 	{
 		currentAction = Action::DeleteArray;
 		cout << "Delete Button has been clicked" << endl;
@@ -127,10 +127,10 @@ void DynamicArrayDemoApp::draw() {
 	addMiddleButton->Draw(m_2dRenderer);
 	deleteButton->Draw(m_2dRenderer);*/
 
-	if (currentAction == Action::Create)
+	/*if (currentAction == Action::Create)
 	{
 		m_2dRenderer->drawText(m_font, "Your array has been created!", 600, 400);
-	}
+	}*/
 	if (currentAction == Action::AddToEnd)
 	{
 		m_2dRenderer->drawText(m_font, "You've added a value to the end ", 600, 400);

@@ -6,7 +6,7 @@ public:
 	DynamicArray();
 	~DynamicArray();
 
-	int operator [] (int index);
+	int& operator [] (int index);
 
 	//returns if the array is empty or not
 	bool isEmpty();
@@ -19,11 +19,13 @@ public:
 	//remove elements from the middle of the array
 	void RemovePos(int position);
 	//altering the size of the array
-	void ExpandArray();
+	void ExpandArray(int index);
 	//initializes array
 	void Initialize(int position);
 	//returns array index
 	int GetIndex(int index);
+	//returns array size
+	int Size();
 
 	//sorts array elements using insertion sort 
 	void SortArray();
@@ -35,6 +37,8 @@ protected:
 	int* dynArray;		//pointer to array itself
 	int capacity;		//the amount of memory allocated to the array
 	int numOfElements;	//number of elements in the array
+	int nextIndex;		//next available empty element
+
 
 };
 
