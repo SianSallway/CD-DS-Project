@@ -21,7 +21,7 @@ DynamicArray::DynamicArray()
 DynamicArray::~DynamicArray()
 {
 	delete [] dynArray; //frees memory 
-	//cout << "The array has been deleted" << endl;
+	cout << "The array has been deleted" << endl;
 }
 
 int& DynamicArray::operator [] (int index)
@@ -88,9 +88,9 @@ void DynamicArray::PrintArray(DynamicArray array)
 
 	for (int i = 0; i < Size(); ++i)
 	{
-		cout << array[i] << " " << "\n";
+		cout << array[i] << " ";
 	}
-
+	cout << "\n";
 	cout << "------------------" << endl;
 }
 
