@@ -17,6 +17,7 @@ DynamicArray::DynamicArray()
 	}
 
 	nextIndex = 0;
+	endIndex = 0;
 }
 
 DynamicArray::~DynamicArray()
@@ -71,9 +72,6 @@ void DynamicArray::ExpandArray(int index)
 
 	//assign array pointer to the new array
 	dynArray = tempArray;
-
-	//CHECK IF FUNC NEEDED
-	//Initialize(numOfElements);
 }
 
 //returns if the array is empty or not
@@ -145,10 +143,12 @@ void DynamicArray::AddToEnd(int newElement)
 	
 	//the number of elements in array has increased
 	numOfElements++;
+	endIndex = newElement;
 
 	cout << "Added: " << newElement << endl;
 	cout << "No. elements: " << numOfElements << endl;
-	
+	cout << "Next Index: " << nextIndex << endl;
+
 	//print array now with new added element
 	PrintArray();
 }
@@ -157,8 +157,34 @@ void DynamicArray::AddToEnd(int newElement)
 //adds elements to the middle of the array
 void DynamicArray::AddToMiddle(int newElement)
 {
-	
+	//position the new element will be added is the middle of the array 
+	int position = capacity / 2;
 
+	int* tempArray = new int[capacity + 1];
+
+	for (int i = 0; i < Size(); ++i)
+	{
+		//copy over all elements before the position 
+		if (i < position)
+		{
+			tempArray[i] = dynArray[i];
+		}
+
+		//insert the new element at the position
+		if (i == position)
+		{
+			tempArray[i] = newElement;
+		}
+
+		//copy over all elements after the position
+		if (i > position)
+		{
+			tempArray[i] = dynArray[i - 1];
+		}
+	}
+
+	//print array now with the new element added to the center
+	PrintArray();
 }
 
 //removing an element from the end of the array
@@ -192,13 +218,22 @@ void DynamicArray::RemoveElement(int element)
 	for (int i = 0; i < Size(); ++i)
 	{
 		//if the element entered is found
-		if (dynArray[i] = element)
+		if (dynArray[i] == element)
 		{
 			//loop thorugh remaining elements and stop one element before the end of array
-			for (int j = dynArray[i]; j < Size() - 1; j++)
+			for (int j = i; j < Size() - 1; j++)
 			{
-				//overwrite the current element with the next, deleting entered element and shifts all other down one
-				dynArray[j] = dynArray[j + 1];
+				if (j == endIndex)
+				{
+					//overwrite the end elements next index with 0;
+					dynArray[j] = 0;
+				}
+				else
+				{
+					//overwrite the current element with the next, deleting entered element and shifts all other down one
+					dynArray[j] = dynArray[j + 1];
+				}
+
 			}
 
 			//the number of elements in array has decreased
@@ -206,30 +241,19 @@ void DynamicArray::RemoveElement(int element)
 
 			break;
 		}
-
 	}
 
 	PrintArray();
 }
 
-//CHECK
-//initializes array
-void DynamicArray::Initialize(int position)
+//clears all array elements
+void DynamicArray::EmptyArray()
 {
-	for (size_t i = position; i < capacity; i++)
+	//loops through every element and initialises them to 0
+	for (int i = 0; i < Size(); ++i)
 	{
 		dynArray[i] = 0;
 	}
-}
 
-//CHECK
-//returns array index
-int DynamicArray::GetIndex(int index)
-{
-	if (index < 0 || index >= numOfElements)
-	{
-		assert(index < 0 || index >= numOfElements);
-	}
-
-	return index;
+	PrintArray();
 }

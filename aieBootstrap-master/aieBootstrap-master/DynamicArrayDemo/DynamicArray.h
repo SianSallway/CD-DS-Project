@@ -19,6 +19,8 @@ public:
 	void RemoveEnd();
 	//remove elements from the middle of the array
 	void RemoveElement(int position);
+	//clears all array elements
+	void EmptyArray();
 	//altering the size of the array
 	void ExpandArray(int index);
 	//initializes array
@@ -38,7 +40,7 @@ protected:
 	int capacity;		//the amount of memory allocated to the array
 	int numOfElements;	//number of elements in the array
 	int nextIndex;		//next available empty element
-
+	int endIndex;		//element at the end of the array
 
 };
 

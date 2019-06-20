@@ -89,9 +89,9 @@ void DynamicArrayDemoApp::update(float deltaTime) {
 	}
 	if (deleteButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_D))
 	{
-		currentAction = Action::DeleteArray;
+		currentAction = Action::ClearArray;
 		cout << "Delete Button has been clicked" << endl;
-		array.~DynamicArray();
+		array.EmptyArray();
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_P))
 	{
@@ -151,7 +151,7 @@ void DynamicArrayDemoApp::draw() {
 		m_2dRenderer->drawText(m_font, "You've removed a value from your ", 600, 400);
 		m_2dRenderer->drawText(m_font, "chosen place in the array", 600, 350);
 	}
-	if (currentAction == Action::DeleteArray)
+	if (currentAction == Action::ClearArray)
 	{
 		m_2dRenderer->drawText(m_font, "Your array has been deleted ", 600, 400);
 	}

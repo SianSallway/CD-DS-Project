@@ -11,7 +11,7 @@ enum class Action
 	RemoveEnd,
 	AddToMiddle,
 	RemoveFromPos,
-	DeleteArray,
+	ClearArray,
 	PrintArray,
 	SortArray
 };
