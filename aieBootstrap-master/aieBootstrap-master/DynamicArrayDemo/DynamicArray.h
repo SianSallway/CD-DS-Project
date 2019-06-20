@@ -1,13 +1,14 @@
 #pragma once
 
+//handles the methods and organisation of the link list 
 class DynamicArray
 {
 public:
 	DynamicArray();
 	~DynamicArray();
 
+	//override [] operator
 	int& operator [] (int index);
-
 	//returns if the array is empty or not
 	bool isEmpty();
 	//adding a new element to the end of the array
@@ -17,20 +18,19 @@ public:
 	//removing an element from the end of the array
 	void RemoveEnd();
 	//remove elements from the middle of the array
-	void RemovePos(int position);
+	void RemoveElement(int position);
 	//altering the size of the array
 	void ExpandArray(int index);
 	//initializes array
 	void Initialize(int position);
 	//returns array index
 	int GetIndex(int index);
-	//returns array size
+	//returns array capacity
 	int Size();
-
 	//sorts array elements using insertion sort 
 	void SortArray();
-
-	void PrintArray(DynamicArray array);
+	//prints all array elements to the console 
+	void PrintArray();
 
 protected:
 

@@ -68,7 +68,7 @@ void DynamicArrayDemoApp::update(float deltaTime) {
 		cout << "Add To End Button has been clicked" << endl;
 		array.AddToEnd(value);
 	}
-	if (removeEndButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_B))
+	if (removeEndButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_E))
 	{
 		currentAction = Action::RemoveEnd;
 		cout << "Remove End Button has been clicked" << endl;
@@ -85,7 +85,7 @@ void DynamicArrayDemoApp::update(float deltaTime) {
 	{
 		currentAction = Action::RemoveFromPos;
 		cout << "Remove Pos Button has been clicked" << endl;
-		array.RemovePos(value);
+		array.RemoveElement(value);
 	}
 	if (deleteButton->Update() || input->wasKeyPressed(aie::INPUT_KEY_D))
 	{
@@ -96,7 +96,7 @@ void DynamicArrayDemoApp::update(float deltaTime) {
 	if (input->isKeyDown(aie::INPUT_KEY_P))
 	{
 		currentAction = Action::PrintArray;
-		array.PrintArray(array);
+		array.PrintArray();
 	}
 	if (input->isKeyDown(aie::INPUT_KEY_S))
 	{
