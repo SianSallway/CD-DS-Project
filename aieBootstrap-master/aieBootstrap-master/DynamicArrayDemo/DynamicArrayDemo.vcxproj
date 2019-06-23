@@ -22,7 +22,7 @@
     <ProjectGuid>{39D357C2-A0DE-4866-9433-80B0DE60AF28}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DynamicArrayDemo</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

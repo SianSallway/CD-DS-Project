@@ -54,7 +54,7 @@ void DynamicArrayDemoApp::update(float deltaTime) {
 
 	// input example
 	aie::Input* input = aie::Input::getInstance();
-
+	int position; 
 	static int value = 0;
 	ImGui::InputInt("Value", &value);
 
@@ -78,6 +78,8 @@ void DynamicArrayDemoApp::update(float deltaTime) {
 	{
 		currentAction = Action::AddToMiddle;
 		cout << "Add Middle Button has been clicked" << endl;
+		cin >> position;
+		cout << "Add Middle Button has been clicked" << endl;
 		array.AddToMiddle(value);
 		
 	}
@@ -93,11 +95,11 @@ void DynamicArrayDemoApp::update(float deltaTime) {
 		cout << "Delete Button has been clicked" << endl;
 		array.EmptyArray();
 	}
-	if (input->isKeyDown(aie::INPUT_KEY_P))
+	/*if (input->isKeyDown(aie::INPUT_KEY_P))
 	{
 		currentAction = Action::PrintArray;
 		array.PrintArray();
-	}
+	}*/
 	if (input->isKeyDown(aie::INPUT_KEY_S))
 	{
 		currentAction = Action::SortArray;

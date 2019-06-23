@@ -22,8 +22,8 @@ DynamicArray::DynamicArray()
 
 DynamicArray::~DynamicArray()
 {
-	//ISSUE
-	//delete [] dynArray; //frees memory 
+	//ISSUE???
+	delete [] dynArray; //frees memory 
 	cout << "The array has been deleted" << endl;
 }
 
