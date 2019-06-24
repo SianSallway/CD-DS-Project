@@ -111,7 +111,7 @@ void DynamicArray::PrintArray()
 //sorts array elements using insertion sort 
 void DynamicArray::SortArray()
 {
-	for (int i = 0; i < capacity; i++)
+	for (int i = 0; i < Size(); i++)
 	{
 		int key = dynArray[i];
 		int j = i - 1;
@@ -182,8 +182,10 @@ void DynamicArray::AddToMiddle(int newElement)
 		}
 	}
 
+	//delete old array
 	delete[] dynArray;
 
+	//assign pointer to new array with new value
 	dynArray = tempArray;
 
 	//print array now with the new element added to the center
@@ -223,29 +225,40 @@ void DynamicArray::RemoveElement(int element)
 		//if the element entered is found
 		if (dynArray[i] == element)
 		{
+			tempArray[i] = 0;
+
+			//the number of elements in array has decreased
+			numOfElements -= 1;
+
 			//loop thorugh remaining elements and stop one element before the end of array
 			for (int j = i; j < Size() - 1; j++)
 			{
 				if (j == endIndex)
 				{
 					//overwrite the end elements next index with 0;
-					dynArray[j] = 0;
+					tempArray[j - 1] = 0;
+					break;
 				}
 				else
 				{
 					//overwrite the current element with the next, deleting entered element and shifts all other down one
-					dynArray[j] = dynArray[j + 1];
+					tempArray[j] = dynArray[j + 1];
 				}
-
 			}
-
-			//the number of elements in array has decreased
-			numOfElements -= 1;
 
 			break;
 		}
+		else
+		{
+			tempArray[i] = dynArray[i];
+		}
 	}
 
+	delete[] dynArray;
+
+	dynArray = tempArray;
+
+	//print new array with element removed
 	PrintArray();
 }
 
