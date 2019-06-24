@@ -27,7 +27,7 @@ void BinaryTree::draw(aie::Renderer2D* renderer, TreeNode* pNode, int x, int y, 
 		{
 			renderer->setRenderColour(1, 0, 0);
 			renderer->drawLine(x, y, x + horizontalSpacing, y - 80);
-			draw(renderer, pNode->getRight(), x - horizontalSpacing, y - 80, horizontalSpacing, selected);
+			draw(renderer, pNode->getRight(), x + horizontalSpacing, y - 80, horizontalSpacing, selected);
 		}
 
 		pNode->draw(renderer, x, y, (selected == pNode));
@@ -101,12 +101,12 @@ bool BinaryTree::findNode(int a_nSearchValue, TreeNode** ppOutNode, TreeNode** p
 		else if (a_nSearchValue < currentNode->getData())
 		{
 			currentParent = currentNode;
-			currentNode = currentNode->getRight();
+			currentNode = currentNode->getLeft();
 		}
 		else
 		{
 			currentParent = currentNode;
-			currentNode = currentNode->getLeft();
+			currentNode = currentNode->getRight();
 		}
 
 	}
@@ -132,8 +132,10 @@ void BinaryTree::remove(int a_nValue)
 {
 	find(a_nValue);
 	cout << "found" << endl;
+
 	TreeNode* currentNode;
-	TreeNode* minimumNode;
+	//TreeNode* minimumNode;
+
 	currentNode->SetData(a_nValue);
 	
 	if (currentNode->hasRight())

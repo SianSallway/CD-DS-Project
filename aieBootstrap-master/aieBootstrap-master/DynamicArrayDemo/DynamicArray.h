@@ -39,8 +39,7 @@ protected:
 	int* dynArray;		//pointer to array itself
 	int capacity;		//the amount of memory allocated to the array
 	int numOfElements;	//number of elements in the array
-	int nextIndex;		//next available empty element
-	int endIndex;		//element at the end of the array
+	int endIndex;		//index of the element at the end of the array
 
 };
 

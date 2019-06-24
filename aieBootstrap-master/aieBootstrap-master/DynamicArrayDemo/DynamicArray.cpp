@@ -16,8 +16,7 @@ DynamicArray::DynamicArray()
 		dynArray[i] = 0;
 	}
 
-	nextIndex = 0;
-	endIndex = 0;
+	endIndex = -1;
 }
 
 DynamicArray::~DynamicArray()
@@ -32,15 +31,7 @@ int& DynamicArray::operator [] (int index)
 {	
 	//this element in the array? if not allocate a bigger array
 	if (index >= capacity)
-	{
-		ExpandArray(index);
-	}
-
-	//if the index is greater than the capacity 
-	if (index > capacity)
-	{
-		nextIndex = index + 1;
-	}
+		throw "Index out of bounds";
 
 	//a reference to the element 
 	return *(dynArray + index);
@@ -56,19 +47,19 @@ void DynamicArray::ExpandArray(int index)
 	int* tempArray = new int[capacity]; 
 
 	//copying over the previous arrays data into the temp array
-	for (int i = 0; i < nextIndex; i++) 
+	for (int i = 0; i <= endIndex; i++) 
 	{
 		tempArray[i] = dynArray[i];
 	}
 
 	//initialise the remainder
-	for (int j = nextIndex; j < capacity; j++)
+	for (int j = endIndex + 1; j < capacity; j++)
 	{
 		tempArray[j] = 0;
 	}
 
 	//delete the old array
-	delete[]dynArray;
+	delete[] dynArray;
 
 	//assign array pointer to the new array
 	dynArray = tempArray;
@@ -134,20 +125,19 @@ void DynamicArray::SortArray()
 void DynamicArray::AddToEnd(int newElement)
 {
 	//if the number of elements has reached or exceeded the arrays capacity then expand it
-	if (nextIndex == capacity) 
+	if (endIndex + 1 == capacity) 
 	{
 		ExpandArray(newElement);
 	}
 
-	dynArray[nextIndex++] = newElement;
+	dynArray[++endIndex] = newElement;
 	
 	//the number of elements in array has increased
 	numOfElements++;
-	endIndex = newElement;
 
 	cout << "Added: " << newElement << endl;
 	cout << "No. elements: " << numOfElements << endl;
-	cout << "Next Index: " << nextIndex << endl;
+	cout << "EndIndex: " << endIndex << endl;
 
 	//print array now with new added element
 	PrintArray();
@@ -188,6 +178,10 @@ void DynamicArray::AddToMiddle(int newElement)
 	//assign pointer to new array with new value
 	dynArray = tempArray;
 
+	cout << "Added: " << newElement << endl;
+	cout << "No. elements: " << numOfElements << endl;
+	cout << "EndIndex: " << endIndex << endl;
+
 	//print array now with the new element added to the center
 	PrintArray();
 }
@@ -215,9 +209,13 @@ void DynamicArray::RemoveEnd()
 
 //FIX
 //remove elements from the middle of the array
+// element: the element that should be removed from array if found
+// return value: none
 void DynamicArray::RemoveElement(int element)
 {
 	int* tempArray = new int[capacity];
+
+	cout << "FIND: Size: " << Size() << ", numOfElements: " << numOfElements << ", endIndex: " << endIndex << endl;
 
 	//loop through elements and compare each one to element entered
 	for (int i = 0; i < Size(); ++i)
@@ -230,22 +228,22 @@ void DynamicArray::RemoveElement(int element)
 			//the number of elements in array has decreased
 			numOfElements -= 1;
 
-			//loop thorugh remaining elements and stop one element before the end of array
+			//loop through remaining elements and stop one element before the end of array
 			for (int j = i; j < Size() - 1; j++)
 			{
-				if (j == endIndex)
+				//overwrite the current element with the next, deleting entered element and shifts all other down one
+				tempArray[j] = dynArray[j + 1];
+
+				if (j + 1 == Size() - 1)
 				{
 					//overwrite the end elements next index with 0;
-					tempArray[j - 1] = 0;
+					tempArray[j + 1] = 0;
+					--endIndex;
 					break;
-				}
-				else
-				{
-					//overwrite the current element with the next, deleting entered element and shifts all other down one
-					tempArray[j] = dynArray[j + 1];
 				}
 			}
 
+			// Only remove first element found
 			break;
 		}
 		else
@@ -256,7 +254,13 @@ void DynamicArray::RemoveElement(int element)
 
 	delete[] dynArray;
 
+
+
 	dynArray = tempArray;
+
+	cout << "Removed: " << element << endl;
+	cout << "No. elements: " << numOfElements << endl;
+	cout << "EndIndex: " << endIndex << endl;
 
 	//print new array with element removed
 	PrintArray();

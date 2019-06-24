@@ -6,7 +6,6 @@ extern aie::Font* g_systemFont;
 
 void TreeNode::draw(aie::Renderer2D* renderer, int x, int y, bool selected)
 {
-
 	static char buffer[10];
 
 	sprintf(buffer, "%d", m_value);

@@ -19,7 +19,8 @@ bool BinaryTreesApp::startup() {
 
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
-	g_systemFont = new aie::Font("../../../../bin/font/consolas.ttf", 32);
+	g_systemFont = new aie::Font("../bin/font/consolas.ttf", 32);
+	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	return true;
 }
@@ -27,6 +28,7 @@ bool BinaryTreesApp::startup() {
 void BinaryTreesApp::shutdown() {
 
 	delete g_systemFont;
+	delete m_font;
 	delete m_2dRenderer;
 }
 
