@@ -153,7 +153,6 @@ void DynamicArray::AddToEnd(int newElement)
 	PrintArray();
 }
 
-//FIX
 //adds elements to the middle of the array
 void DynamicArray::AddToMiddle(int newElement)
 {
@@ -182,6 +181,10 @@ void DynamicArray::AddToMiddle(int newElement)
 			tempArray[i] = dynArray[i - 1];
 		}
 	}
+
+	delete[] dynArray;
+
+	dynArray = tempArray;
 
 	//print array now with the new element added to the center
 	PrintArray();
