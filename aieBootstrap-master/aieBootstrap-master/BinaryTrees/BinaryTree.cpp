@@ -128,16 +128,33 @@ TreeNode* BinaryTree::find(int a_nValue)
 		return nullptr;
 }
 
+/*	find the value in the tree, obtaining a pointer to the node and its parent
+If the current node has a right branch,then
+find the minimum value in the right branch by iterating down the left branch of the 
+current node’s right child until there are no more left branch nodes
+copy the value from this minimum node to the current node
+find the minimum node’s parent node (the parent of the node you are deleting)
+if you are deleting the parent’s left node
+set this left child of the parent to the right child of the minimum node
+if  you are deleting the parent’s right node
+set the right child of the parent to the minimum node’s right child
+If the current node has no right branch
+if we are deleting the parent’s left child, set the left child of the parent to the left
+child of the current node
+If we are deleting the parent’s right child, set the right child of the parent to the left
+child of the current nodeIf we are deleting the root, the root becomes the left child of the current node*/
+
 void BinaryTree::remove(int a_nValue)
 {
 	find(a_nValue);
 	cout << "found" << endl;
 
-	TreeNode* currentNode;
-	//TreeNode* minimumNode;
+	TreeNode* currentNode = m_pRoot;
+	TreeNode* minimumNode;
+	TreeNode* minParentNode;
 
-	currentNode->SetData(a_nValue);
-	
+
+
 	if (currentNode->hasRight())
 	{
 		currentNode->getRight();

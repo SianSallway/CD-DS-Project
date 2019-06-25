@@ -165,10 +165,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="HashProjectApp.cpp" />
+    <ClCompile Include="HashTable.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HashProjectApp.h" />
+    <ClInclude Include="HashTable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

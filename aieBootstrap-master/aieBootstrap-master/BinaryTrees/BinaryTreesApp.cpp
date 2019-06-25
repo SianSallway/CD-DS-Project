@@ -20,15 +20,12 @@ bool BinaryTreesApp::startup() {
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
 	g_systemFont = new aie::Font("../bin/font/consolas.ttf", 32);
-	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
-
+	
 	return true;
 }
 
 void BinaryTreesApp::shutdown() {
 
-	delete g_systemFont;
-	delete m_font;
 	delete m_2dRenderer;
 }
 
@@ -72,6 +69,7 @@ void BinaryTreesApp::draw() {
 	// draw your stuff here!
 	m_binaryTree.draw(m_2dRenderer, m_selectedNode);
 	
+	m_2dRenderer->setRenderColour(1, 1, 1, 1);
 	// output some text, uses the last used colour
 	m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);
 

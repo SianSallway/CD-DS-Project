@@ -1,7 +1,7 @@
 #pragma once
-
 #include "Application.h"
 #include "Renderer2D.h"
+#include <string>
 
 class HashProjectApp : public aie::Application {
 public:
@@ -20,5 +20,6 @@ protected:
 	aie::Renderer2D*	m_2dRenderer;
 	aie::Font*			m_font;
 	aie::Texture*		ship;
+	
 
 };

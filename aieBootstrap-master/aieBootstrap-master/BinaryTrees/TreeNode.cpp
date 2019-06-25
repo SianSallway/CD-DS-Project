@@ -13,6 +13,9 @@ void TreeNode::draw(aie::Renderer2D* renderer, int x, int y, bool selected)
 	renderer->setRenderColour(1, 1, 0);
 	renderer->drawCircle(x, y, 30);
 
+	renderer->setRenderColour(0, 0, 0);
+	renderer->drawText(g_systemFont, buffer, x - 12, y - 10);
+
 	if (selected == true)
 	{
 		renderer->setRenderColour(.5, .5, 0);
