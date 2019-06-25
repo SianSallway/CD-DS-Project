@@ -10,16 +10,19 @@ using namespace std;
 class HashTable
 {
 public:
-	HashTable(unsigned int size) : m_size(size), m_data(new aie::Texture*[size]) {}
-	~HashTable() { delete[] m_data; }
+	HashTable(unsigned int tableSize) : size(tableSize), data(new aie::Texture*[tableSize]) {}
+	~HashTable() { delete[] data; }
 
 	aie::Texture*& operator[] (const string& key)
 	{
-		auto hashedKey = HashFunction(key) % m_size; 
-		
-		cout << "Key: " << hashedKey << "\n";
+		cout << "Entered: " << key << "\n";
 
-		return m_data[hashedKey];
+		auto hashedKey = HashFunction(key) % size;
+		
+		cout << "Hashed Key: " << hashedKey << "\n";
+		cout << "\n";
+
+		return data[hashedKey];
 	}
 
 private:
@@ -28,7 +31,7 @@ private:
 	// specified as a template parameter
 	unsigned int HashFunction(const string& key) const;
 	
-	aie::Texture** m_data;
-	unsigned int m_size;
+	aie::Texture** data;
+	unsigned int size;
 };
 
