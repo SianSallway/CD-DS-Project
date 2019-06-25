@@ -5,6 +5,8 @@
 #include "imgui.h"
 
 aie::Font* g_systemFont = nullptr;
+#define STANDALONEBUILD
+
 BinaryTreesApp::BinaryTreesApp() {
 
 }
@@ -19,8 +21,12 @@ bool BinaryTreesApp::startup() {
 
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
+#ifdef STANDALONEBUILD
+	g_systemFont = new aie::Font("../../../../bin/font/consolas.ttf", 32);
+#else
 	g_systemFont = new aie::Font("../bin/font/consolas.ttf", 32);
-	
+#endif
+
 	return true;
 }
 

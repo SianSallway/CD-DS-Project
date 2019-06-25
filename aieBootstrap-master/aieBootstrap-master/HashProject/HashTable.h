@@ -20,7 +20,6 @@ public:
 		auto hashedKey = HashFunction(key) % size;
 		
 		cout << "Hashed Key: " << hashedKey << "\n";
-		cout << "\n";
 
 		return data[hashedKey];
 	}

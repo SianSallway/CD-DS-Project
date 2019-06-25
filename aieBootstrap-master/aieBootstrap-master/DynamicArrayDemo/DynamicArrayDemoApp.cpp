@@ -7,7 +7,7 @@
 
 using namespace std;
 
-//#define STANDALONEBUILD
+#define STANDALONEBUILD
 
 DynamicArrayDemoApp::DynamicArrayDemoApp() {
 
